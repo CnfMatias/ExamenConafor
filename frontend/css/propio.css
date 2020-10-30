@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 12px !important;
+    letter-spacing: 0.1px; }
+
+.img{ margin: 5px !important;}
+/* Margin right */
+.m-r-5{margin-right: 5px !important;}
+.m-r-10{margin-right: 10px !important;}
+.m-r-15{margin-right: 15px !important;}
+.m-r-20{margin-right:20px !important;}
+.m-r-25{margin-right:25px !important;}
+.m-r-30{margin-right: 30px !important;}
+.m-r-35{margin-right: 35px !important;}
+.m-r-40{margin-right: 40px !important;}
+/* Margin-top */
+.m-t-5{margin-top: 5px !important;}
+.m-t-10{margin-top: 10px !important;}
+.m-t-15{margin-top: 15px !important;}
+.m-t-20{margin-top:20px !important;}
+.m-t-25{margin-top:25px !important;}
+.m-t-30{margin-top: 30px !important;}
+.m-t-35{margin-top: 35px !important;}
+.m-t-40{margin-top: 40px !important;}
+/* Margin-left */
+.m-l-5{margin-left: 5px !important;}
+.m-l-10{margin-left: 10px !important;}
+.m-l-15{margin-left: 15px !important;}
+.m-l-20{margin-left:20px !important;}
+.m-l-25{margin-left:25px !important;}
+.m-l-30{margin-left: 30px !important;}
+.m-l-35{margin-left: 35px !important;}
+.m-l-40{margin-left: 40px !important;}
+/* Margin-bottom */
+.m-b-5{margin-bottom: 5px !important;}
+.m-b-10{margin-bottom: 10px !important;}
+.m-b-15{margin-bottom: 15px !important;}
+.m-b-20{margin-bottom:20px !important;}
+.m-b-25{margin-bottom:25px !important;}
+.m-b-30{margin-bottom: 30px !important;}
+.m-b-35{margin-bottom: 35px !important;}
+.m-b-40{margin-bottom: 40px !important;}
+/* Padding */
+.pad-5{padding: 5px !important;}
+.pad-10{padding: 10 !important;}
+.pad-15{padding: 15px !important;}
+.pad-20{padding: 20px !important;}
+.pad-25{padding: 25px !important;}
+.pad-30{padding: 30px !important;}
+.pad-35{padding: 35px !important;}
+.pad-40{padding: 40px !important;}
+
+.fs-5{font-size: 5px !important;}
+.fs-10{font-size: 10px !important;}
+.fs-15{font-size: 15px !important;}
+.fs-20{font-size: 20px !important;}
+.fs-25{font-size: 25px !important;}
+.fs-30{font-size: 30px !important;}
+.fs-35{font-size: 35px !important;}
+.fs-40{font-size: 40px !important;}
+.fs-45{font-size: 45px !important;}
+.fs-50{font-size: 50px !important;}
+.fs-55{font-size: 55px !important;}
+.fs-60{font-size: 60px !important;}
+
+.alto-80{height: 80px !important;}
+.requerido{border-color: red !important;}
+
+@media (max-width: 768px){
+  .ocultar-min {
+      display: none;
+  }
+}
+@media(max-width: 10px){
+  .page-logo{
+    display: none;
+  }
+}
+
+.text-dorado{
+  color:#D4C19C !important;
+  font-weight: bold !important;}
+  
+.consulta_query{
+  background-color: #2C343C !important;
+}
+
+.header-icon:hover{
+  color: #fff !important;
+}
+
+.nombre-usuario{
+font-size: 16px !important;
+}
+
+hr.style {
+    border: 0;
+    height: 0;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+#icono_selec{
+  font-size: 30px !important;
+}
+
+.falta{
+  border: red 1px solid;
+}
+
+.wizard-content > section{
+  background-color: #fff;
+  padding: 20px;
+  border: 5px;
+  display: none;
+}
+
+.btn-wizard {
+  height: 100px;
+  line-height: 10px;
+  color: #fff !important;
+  border: cornsilk solid 1px;
+  background-color: #7d7f80 !important;
+  border-color: #868e96;}
+.btn-wizard.lleno {
+    color: rgb(79, 253, 36) !important;
+    background-color: #7d7f80 !important;
+    border-color: #868e96;}
+.btn-wizard.active {
+  color: #fff !important;
+  background-color: #555c64 !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(152, 159, 166, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(152, 159, 166, 0.5) !important;}
+.btn-wizard.disabled, .btn-wizard:disabled {
+  color: rgb(83, 82, 82) !important;
+  background-color: #cdd0d4 !important;}
+  .btn-wizard.disabled:hover, .btn-wizard:disabled:hover {
+    background-color: #cdd0d4 !important;
+    cursor: no-drop;}
+
+.mayus{
+  text-transform: uppercase;
+}
+.tabulator-table{
+  font-size: 12px;
+}
+.input2{
+  background-color: transparent !important;
+  outline: 0;
+  border-width: 0 0 1px;
+  border-color: #000
+}
