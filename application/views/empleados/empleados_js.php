@@ -70,7 +70,7 @@ $(document).ready(function(){
     $("body").on('click','.btx_activar',function(){        
         let ide = $(this).attr('ide').split('-');
         let valor = (ide[1] == 3)?2:3;
-        let datos = {'condicion':{'id':ide[0]},'datos':{'estatus_general':valor}};
+        let datos = {'condicion':{'id':ide[0]},'datos':{'estatus_general_id':valor}};
 
         api.post('<?=base_url()?>empleados/activar',datos)
         .done(function(rep){

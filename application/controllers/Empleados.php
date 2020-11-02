@@ -42,7 +42,7 @@ class Empleados extends CI_Controller {
 	//Funcion de ver empleados en tabla
 	public function index(){
 		$data = $this->basicas();
-		$data['empleados'] = $this->AM->all('vw_empleados','json');
+		$data['empleados'] = $this->AM->all('empleados','json');
 		$this->load->view('empleados/empleados',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -51,7 +51,9 @@ class Empleados extends CI_Controller {
 	//Funcion para traer la vista de nuevo empleado
 	public function nuevo(){
 		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
+		$data['perfiles'] = $this->crea_select('c_perfiles', 1);
+		$data['sueldos'] = $this->crea_select('c_sueldos', 1);
+		$data['estatus_genera_id']= $this->crea_select('c_estaus_general', 1);
 		$this->load->view('empleados/nuevo_empleado',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -60,7 +62,7 @@ class Empleados extends CI_Controller {
 	//Funcion para ver los datos de un empleado
 	public function ver($ide=null){
 		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
+		//$data['puestos'] = $this->crea_select('c_perfiles');
 		$condicion = array('id'=>$ide);
 		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
 		$this->load->view('empleados/ver_empleado',$data);
@@ -71,7 +73,8 @@ class Empleados extends CI_Controller {
 	//Funcion para cargar la vista de edicion de un empleado
 	public function editar($ide=null){
 		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
+		$data['perfiles'] = $this->crea_select('c_perfiles');
+		$data['sueldos'] = $this->crea_select('c_sueldos');
 		$condicion = array('id'=>$ide);
 		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
 		$this->load->view('empleados/editar_empleado',$data);
@@ -89,17 +92,18 @@ class Empleados extends CI_Controller {
 		//Cragamos libreria necesaria
 		$this->load->library('upload', $config);
 		//verificamos la carga del archivo
-		if($this->upload->do_upload('foto_empleado')){
-			$_POST['foto_emp'] = $this->upload->data()['file_name'];
+		/*if($this->upload->do_upload('foto_empleado')){
+			$_POST['foto_emp'] = $this->upload->data()['file_name'];*/
 			$res = $this->AM->insertar($_POST,'empleados');
 			if($res['ban'])
 				$this->codificar(array('ban'=>true,'msg'=>'Empleado Creado'));
 			else
 				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar empleado','error'=>$res['error']));
-		}
+	/*	}
 		else{
 			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el empleado','error'=>$this->upload->display_errors()));
-		}
+		}*/
+	
 	}
 
 	//Funcion para activar o inactivar un empleado

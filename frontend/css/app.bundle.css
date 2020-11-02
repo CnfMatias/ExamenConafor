@@ -337,9 +337,9 @@ RESULT:
 
 */
 .page-logo, .page-sidebar, .nav-footer, .bg-brand-gradient {
-  background-image: -webkit-gradient(linear, right top, left top, from(rgba(51, 148, 225, 0.18)), to(transparent));
-  background-image: linear-gradient(270deg, rgba(51, 148, 225, 0.18), transparent);
-  background-color: #584475; }
+  /* background-image: -webkit-gradient(linear, right top, left top, from(rgba(51, 148, 225, 0.18)), to(transparent));
+  background-image: linear-gradient(270deg, rgba(143, 35, 31, 0.18), transparent); */
+  background-color: #152a63;}
 
 /*
 %shadow-hover {
@@ -473,7 +473,7 @@ RESULT:
   .dropdown-icon-menu > ul > li .btn:hover, .header-btn:hover {
     -webkit-box-shadow: none;
             box-shadow: none;
-    border-color: #886ab5;
+    border-color: #152a63;
     background: #a38cc6;
     color: #fff; }
 
@@ -615,16 +615,16 @@ RESULT:
   --theme-danger: #fd3995;
   --theme-light: #fff;
   --theme-dark: #505050;
-  --theme-primary-50: #ccbfdf;
-  --theme-primary-100: #beaed7;
-  --theme-primary-200: #b19dce;
-  --theme-primary-300: #a38cc6;
-  --theme-primary-400: #967bbd;
-  --theme-primary-500: #886ab5;
-  --theme-primary-600: #7a59ad;
-  --theme-primary-700: #6e4e9e;
-  --theme-primary-800: #62468d;
-  --theme-primary-900: #563d7c;
+  --theme-primary-50: #222f7e;
+  --theme-primary-100: #222f7e;
+  --theme-primary-200:#222f7e;
+  --theme-primary-300: #222f7e;
+  --theme-primary-400: #222f7e;
+  --theme-primary-500: #222f7e;
+  --theme-primary-600: #222f7e;
+  --theme-primary-700: #222f7e;
+  --theme-primary-800: #222f7e;
+  --theme-primary-900: #222f7e;
   --theme-success-50: #7aece0;
   --theme-success-100: #63e9db;
   --theme-success-200: #4de5d5;
@@ -1046,7 +1046,7 @@ html body {
     .app-list-item:hover > .icon-stack {
       font-size: 3.1875rem; }
   .app-list-item:active {
-    border-color: #886ab5;
+    border-color: #152a63;
     padding-top: 8px; }
     .app-list-item:active > .icon-stack {
       font-size: 3.125rem; }
@@ -1136,7 +1136,7 @@ html body {
 .nav-title {
   text-transform: uppercase;
   margin: 0;
-  color: #8268a8;
+  color: #f7f3f3be;
   padding: 1rem 2rem;
   margin-top: 1.5rem;
   font-size: 0.7rem;
@@ -1217,7 +1217,7 @@ html body {
       outline: 0;
       padding: 0.8125rem 2rem;
       font-size: 0.875rem;
-      color: #bdafd1;
+      color: #f0eff1;
       font-weight: 400;
       text-decoration: none;
       position: relative;
@@ -1276,7 +1276,7 @@ html body {
         margin-right: 0.25rem;
         font-size: 1.125rem;
         width: 1.75rem;
-        color: #876fab; }
+        color: #f1ebebd0; }
       .nav-menu li a > .nav-link-text {
         -webkit-box-flex: 1;
             -ms-flex: 1;
@@ -1314,7 +1314,7 @@ html body {
       padding-top: 10px;
       padding-bottom: 10px; }
       .nav-menu li > ul li a {
-        color: #af9fc7;
+        color: #f0eff3;
         padding: 0.8125rem 2rem 0.8125rem 4rem; }
         .nav-menu li > ul li a b.collapse-sign > [class*='fa-'],
         .nav-menu li > ul li a b.collapse-sign > .ni {
@@ -1661,9 +1661,9 @@ html body {
     .nav-function-top .page-header {
       margin-top: 0;
       height: 4.125rem;
-      background-image: -webkit-gradient(linear, right top, left top, from(rgba(51, 148, 225, 0.18)), to(transparent));
-      background-image: linear-gradient(270deg, rgba(51, 148, 225, 0.18), transparent);
-      background-color: #584475;
+      background-image: -webkit-gradient(linear, right top, left top, from(rgba(143, 31, 31, 0.18)), to(transparent));
+      background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.18), transparent);
+      background-color: #752323;
       position: absolute;
       top: 0;
       right: 0;
@@ -2156,7 +2156,7 @@ html body {
               position: absolute;
               width: 13.75rem;
               left: 5.6875rem;
-              background-color: #584475;
+              background-color: #152a63;
               margin-top: -5rem;
               padding-top: 3.75rem;
               border-radius: 4px .5rem .5rem .5rem;
@@ -2281,7 +2281,7 @@ html body {
   transition: all 0.3s ease-in-out; }
   .nav-footer .nav-footer-buttons > li > a {
     display: block;
-    color: #9782b7;
+    color: #fdfdfd;
     height: 1.8125rem;
     line-height: 1.8125rem;
     margin-top: 1px;
@@ -2738,12 +2738,12 @@ html body {
     border-color: transparent;
     border-left-color: #838383; }
   .breadcrumb-arrow li a:hover {
-    background-color: #886ab5; }
+    background-color: #152a63; }
     .breadcrumb-arrow li a:hover:before {
-      border-color: #886ab5;
+      border-color: #152a63;
       border-left-color: transparent; }
     .breadcrumb-arrow li a:hover:after {
-      border-left-color: #886ab5; }
+      border-left-color: #27286e; }
   .breadcrumb-arrow li a:active {
     background-color: #838383; }
     .breadcrumb-arrow li a:active:before {
@@ -5851,7 +5851,7 @@ $grid-breakpoints: (
         max-width: none;
         background: #fff; }
         .mobile-search-on:not(.mobile-nav-on) .search .app-forms #search-field:focus {
-          border-color: #886ab5; }
+          border-color: #152a63;}
   .mobile-search-on:not(.mobile-nav-on) [data-class="mobile-nav-on"] {
     display: none !important; }
   .page-header [data-toggle="dropdown"] + .dropdown-menu {
@@ -6364,7 +6364,7 @@ body.mod-pace-custom {
       right: 100%;
       height: 100%;
       width: 100%;
-      background-color: #886ab5;
+      background-color:  #27286e;
       background-image: linear-gradient(135deg, #886ab5 0%, #886ab5 25%, #6e4e9e 25%, #6e4e9e 50%, #886ab5 50%, #886ab5 75%, #6e4e9e 75%, #6e4e9e 100%);
       background-repeat: repeat;
       background-position: 0 0;
@@ -7022,7 +7022,7 @@ html:not(.root-text-sm):not(.root-text-lg):not(.root-text-xl) [data-class="root-
     color: white; }
 
 .bg-primary-500 {
-  background-color: #886ab5;
+  background-color:  #27286e;
   color: white; }
   .bg-primary-500:hover {
     color: white; }
@@ -7064,7 +7064,7 @@ html:not(.root-text-sm):not(.root-text-lg):not(.root-text-xl) [data-class="root-
   color: #a38cc6; }
 
 .color-primary-400 {
-  color: #967bbd; }
+  color: #dfdbe6; }
 
 .color-primary-500 {
   color: #886ab5; }

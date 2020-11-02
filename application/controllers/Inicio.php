@@ -7,7 +7,7 @@ class Inicio extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->library('componentes');
-		$this->load->model('Api_model','AM',true);
+		//$this->load->model('Api_model','AM',true);
 	}
 
 

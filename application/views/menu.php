@@ -31,6 +31,8 @@ $caja_chica_m = '';
 
 $vacia_m = '';
 
+$presupuesto_m = '';
+
 
 switch (true) {
         ///////////////// Administracion //////
@@ -39,6 +41,13 @@ switch (true) {
         $fa_icon = 'fal fa-cogs';
         $titulo_m = 'Administración / Configuraciones';
         $descri_m = 'Módulo para la configuración del Sistema Olimpoos';
+        $m_superior_admin = 'active open';
+        break;
+    case strpos($url, 'presupuesto') !== false:
+        $presupuesto_m = 'active';
+        $fa_icon = 'fa fa-archive';
+        $titulo_m = 'Administración / presupuesto';
+        $descri_m = 'Presupuesto de lavadoras';
         $m_superior_admin = 'active open';
         break;
     case strpos($url, 'perfiles') !== false:
@@ -169,6 +178,11 @@ switch (true) {
                     <span class="nav-link-text">Empleados</span>
                 </a>
             </li>
+            <li class="'.$clientes_m.'">
+                <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
+                    <span class="nav-link-text">Clientes</span>
+                </a>
+            </li>
             <li class="'.$usuarios_m.'">
                 <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
                     <span class="nav-link-text">Usuarios</span>
@@ -177,11 +191,6 @@ switch (true) {
             <li class="'.$proveedores_m.'">
                 <a href="'.base_url().'proveedores" title="Proveedores" data-filter-tags="proveedores">
                     <span class="nav-link-text">Proveedores</span>
-                </a>
-            </li>
-            <li class="'.$clientes_m.'">
-                <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
-                    <span class="nav-link-text">Clientes</span>
                 </a>
             </li>
         </ul>
