@@ -78,8 +78,8 @@ $db['default'] = array(
 	'hostname' => '127.0.0.1',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'olimpoos',
-	'dbdriver' => 'mysqli',  //mysqli
+	'database' => 'splus',
+	'dbdriver' => 'mysqli', 
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
