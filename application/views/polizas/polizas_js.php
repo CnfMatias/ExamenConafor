@@ -1,23 +1,23 @@
 <script>
 $(document).ready(function(){
 
-    $("body").on('click',"#btx_cancela_cliente",function(e){
+    $("body").on('click',"#btx_cancela_poliza",function(e){
         e.preventDefault();
-        location.href = '<?=base_url()?>clientes';
+        location.href = '<?=base_url()?>polizas';
     })
     
-    //Botonazo de nuevo cliente
-    $("body").on('click','#btn_nvo_cliente',function(){
-        location.href = '<?=base_url()?>clientes/nuevo';
+    //Botonazo de nuevo poliza
+    $("body").on('click','#btn_nvo_poliza',function(){
+        location.href = '<?=base_url()?>polizas/nuevo';
     })
 
-    //botonazo de guardar o actualizar cliente
+    //botonazo de guardar o actualizar poliza
     $("form").submit(function(e){
         e.preventDefault();    
         var formData = new FormData(this);
-        let url = '<?=base_url()?>clientes/save';
+        let url = '<?=base_url()?>polizas/save';
         if(formData.get('id') !== null){
-            url = '<?=base_url()?>clientes/actualizar';
+            url = '<?=base_url()?>polizas/actualizar';
         }
         $.ajax({
             type: "POST",
@@ -28,7 +28,7 @@ $(document).ready(function(){
             cache: false,
             success: function (data) {
                 if(JSON.parse(data).ban){
-                    alert('',JSON.parse(data).msg,'success','<?=base_url()?>clientes/');
+                    alert('',JSON.parse(data).msg,'success','<?=base_url()?>polizas/');
                 }
                 else{
                     alert('',JSON.parse(data).msg,'error');
@@ -40,24 +40,24 @@ $(document).ready(function(){
     //Botonazo de ver enpleado
     $('body').on('click','.btx_ver',function(){
         let ide = $(this).attr('ide');
-        location.href = '<?=base_url()?>clientes/ver/'+ide;
+        location.href = '<?=base_url()?>polizas/ver/'+ide;
     })
 
-    //Botonazo de editar cliente
+    //Botonazo de editar poliza
     $('body').on('click','.btx_editar',function(){
         let ide = $(this).attr('ide');
-        location.href = '<?=base_url()?>clientes/editar/'+ide;
+        location.href = '<?=base_url()?>polizas/editar/'+ide;
     })
 
-    //Botonazo de eliminacion de cliente
+    //Botonazo de eliminacion de poliza
     $("body").on('click','.btx_eliminar',function(){
         let id = $(this).attr('ide');
         confirm('Eliminar Registro','Desea eliminar el registro?','info')
         .then(function(){
-            api.get('<?=base_url()?>clientes/eliminar/'+id)
+            api.get('<?=base_url()?>polizas/eliminar/'+id)
             .done(function(response){
                 if(JSON.parse(response).ban){
-                    alert('',JSON.parse(response).msg,'success','<?=base_url()?>clientes')
+                    alert('',JSON.parse(response).msg,'success','<?=base_url()?>polizas')
                 }
             })
             .fail(function(xhr, textStatus, error){
@@ -72,18 +72,18 @@ $(document).ready(function(){
         let valor = (ide[1] == 3)?2:3;
         let datos = {'condicion':{'id':ide[0]},'datos':{'estatus_general_id':valor}};
 
-        api.post('<?=base_url()?>clientes/activar',datos)
+        api.post('<?=base_url()?>polizas/activar',datos)
         .done(function(rep){
-            alert('',JSON.parse(rep).msg,'success','<?=base_url()?>clientes/');
+            alert('',JSON.parse(rep).msg,'success','<?=base_url()?>polizas/');
         })
         .fail(function(res){
-            alert('',JSON.parse(res).msg,'error','<?=base_url()?>clientes/');
+            alert('',JSON.parse(res).msg,'error','<?=base_url()?>polizas/');
             console.log(res)
         })
     })
 
     ////FUNCIONDE CARGA DE IMAGEN
-    $('#foto_cliente').change(function(e) {
+    $('#foto_poliza').change(function(e) {
         addImage(e);
     });
 
@@ -106,7 +106,7 @@ $(document).ready(function(){
 
     $('body').on('click','img[name=foto_emp]',function(){
         let src = $(this).attr('src');
-        modal('Foto cliente','<div class="row"><div class="col-md-12"><img style="width:100%" src="'+src+'"></div></div>');
+        modal('Foto poliza','<div class="row"><div class="col-md-12"><img style="width:100%" src="'+src+'"></div></div>');
     })
 
 })

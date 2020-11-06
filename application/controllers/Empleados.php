@@ -42,7 +42,7 @@ class Empleados extends CI_Controller {
 	//Funcion de ver empleados en tabla
 	public function index(){
 		$data = $this->basicas();
-		$data['empleados'] = $this->AM->all('empleados','json');
+		$data['empleados'] = $this->AM->all('vw_empleados','json');
 		$this->load->view('empleados/empleados',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -51,9 +51,10 @@ class Empleados extends CI_Controller {
 	//Funcion para traer la vista de nuevo empleado
 	public function nuevo(){
 		$data = $this->basicas();
-		$data['perfiles'] = $this->crea_select('c_perfiles', 1);
-		$data['sueldos'] = $this->crea_select('c_sueldos', 1);
-		$data['estatus_genera_id']= $this->crea_select('c_estaus_general', 1);
+		$data['perfiles'] = $this->crea_select('c_perfiles');
+		$data['sueldos'] = $this->crea_select('c_sueldos');
+		$data['estados'] = $this->crea_select('c_estados');
+		$data['estatus_genera_id']= $this->crea_select('c_estatus_general');
 		$this->load->view('empleados/nuevo_empleado',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -62,9 +63,11 @@ class Empleados extends CI_Controller {
 	//Funcion para ver los datos de un empleado
 	public function ver($ide=null){
 		$data = $this->basicas();
-		//$data['puestos'] = $this->crea_select('c_perfiles');
+		$data['perfiles'] = $this->crea_select('c_perfiles');
+		$data['sueldos'] = $this->crea_select('c_sueldos');
+		$data['estados'] = $this->crea_select('c_estados');
 		$condicion = array('id'=>$ide);
-		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
+		$data['empleado'] = $this->AM->consulta_unica($condicion,'vw_empleados');
 		$this->load->view('empleados/ver_empleado',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -75,6 +78,7 @@ class Empleados extends CI_Controller {
 		$data = $this->basicas();
 		$data['perfiles'] = $this->crea_select('c_perfiles');
 		$data['sueldos'] = $this->crea_select('c_sueldos');
+		$data['estados'] = $this->crea_select('c_estados');
 		$condicion = array('id'=>$ide);
 		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
 		$this->load->view('empleados/editar_empleado',$data);

@@ -1,20 +1,20 @@
 <div class="row">
     <div class="col col-md-12 text-right">
-        <button class="btn btn-primary" id="btn_nvo_cliente" ><i class="fa fa-plus"></i> Nuevo Cliente</button>
+        <button class="btn btn-primary" id="btn_nvo_poliza" ><i class="fa fa-plus"></i> Nueva Poliza</button>
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-12">
-        <div id="tabla_clientes"></div>
+        <div id="tabla_polizas"></div>
     </div>
 </div>
 <script>
     let columnas = [
-        {title:"Nombre", field:"nombre", sorter:"string",width:200,headerFilter:"input"},
-        {title:"Calle", field:"calle", sorter:"string", align:'center',width:150,headerFilter:"input"},
-        {title:"Correo", field:"email", sorter:"string",align:'center',width:120, headerFilter:"input"},
-        {title:"Telefono/cel", field:"telefono", sorter:"number",align:'center',width:180, headerFilter:"input"}
+        {title:"Cliente", field:"cliente_nom", sorter:"String",width:200,headerFilter:"input"},
+        {title:"Costo", field:"costo", sorter:"string", align:'center',width:150,headerFilter:"input"},
+        {title:"Fecha inició", field:"fecha_inicio", sorter:"string",align:'center',width:120, headerFilter:"input"},
+        {title:"Fecha final", field:"fecha_fin", sorter:"string",align:'center',width:180, headerFilter:"input"}
     ];
 
     let icons = function(cell, formatterParams){
@@ -26,10 +26,10 @@
     };
 
     columnas.push({title:'Acciones', formatter:icons,align:'center'});
-    var table = new Tabulator("#tabla_clientes", {
+    var table = new Tabulator("#tabla_polizas", {
         layout:"fitColumns",
         reactiveData:true,
-        data:<?=$clientes?>,
+        data:<?=$polizas?>,
         columns:columnas
     });
 </script>

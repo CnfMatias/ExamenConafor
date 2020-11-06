@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Mexico_City');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class clientes extends CI_Controller {
+class Polizas extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
@@ -39,49 +39,51 @@ class clientes extends CI_Controller {
         return $valores;
     }
 
-	//Funcion de ver clientes en tabla
+	//Funcion de ver polizas en tabla
 	public function index(){
 		$data = $this->basicas();
-		$data['clientes'] = $this->AM->all('clientes','json');
-		$this->load->view('clientes/clientes',$data);
-		$this->load->view('clientes/clientes_js');
+		$data['cliente_nom'] = $this->crea_select('clientes');
+		$data['polizas'] = $this->AM->all('vw_polizas','json');
+		$this->load->view('polizas/polizas',$data);
+		$this->load->view('polizas/polizas_js');
 		$this->load->view('footer',$data);
 	}
 
-	//Funcion para traer la vista de nuevo cliente
+	//Funcion para traer la vista de nuevo poliza
 	public function nuevo(){
 		$data = $this->basicas();
-		$data['clientes'] = $this->crea_select('clientes');
-		$data['empleado'] = $this->crea_select('empleados');
-		$this->load->view('clientes/nuevo_cliente',$data);
-		$this->load->view('clientes/clientes_js');
+		$data['cliente_nom'] = $this->crea_select('clientes');
+		$data['emp_nom'] = $this->crea_select('empleados');
+		$this->load->view('polizas/nuevo_poliza',$data);
+		$this->load->view('polizas/polizas_js');
 		$this->load->view('footer',$data);
 	}
 
-	//Funcion para ver los datos de un cliente
+	//Funcion para ver los datos de un poliza
 	public function ver($ide=null){
 		$data = $this->basicas();
-		//$data['puestos'] = $this->crea_select('c_perfiles');
+		$data['cliente_nom'] = $this->crea_select('clientes');
+		$data['emp_nom'] = $this->crea_select('empleados');
 		$condicion = array('id'=>$ide);
-		$data['cliente'] = $this->AM->consulta_unica($condicion,'clientes');
-		$this->load->view('clientes/ver_cliente',$data);
-		$this->load->view('clientes/clientes_js');
+		$data['poliza'] = $this->AM->consulta_unica($condicion,'polizas');
+		$this->load->view('polizas/ver_poliza',$data);
+		$this->load->view('polizas/polizas_js');
 		$this->load->view('footer',$data);
 	}
 
-	//Funcion para cargar la vista de edicion de un cliente
+	//Funcion para cargar la vista de edicion de un poliza
 	public function editar($ide=null){
 		$data = $this->basicas();
-		$data['perfiles'] = $this->crea_select('c_perfiles');
-		$data['sueldos'] = $this->crea_select('c_sueldos');
+		$data['cliente_nom'] = $this->crea_select('clientes');
+		$data['emp_nom'] = $this->crea_select('empleados');
 		$condicion = array('id'=>$ide);
-		$data['cliente'] = $this->AM->consulta_unica($condicion,'clientes');
-		$this->load->view('clientes/editar_cliente',$data);
-		$this->load->view('clientes/clientes_js');
+		$data['poliza'] = $this->AM->consulta_unica($condicion,'polizas');
+		$this->load->view('polizas/editar_poliza',$data);
+		$this->load->view('polizas/polizas_js');
 		$this->load->view('footer',$data);
 	}
 
-	//Funcion para guadar los datos de un cliente
+	//Funcion para guadar los datos de un poliza
 	public function save(){
 		//cargamos configuraciones
 		$config['upload_path'] = './frontend/emps/';
@@ -91,54 +93,53 @@ class clientes extends CI_Controller {
 		//Cragamos libreria necesaria
 		$this->load->library('upload', $config);
 		//verificamos la carga del archivo
-		/*if($this->upload->do_upload('foto_cliente')){
+		/*if($this->upload->do_upload('foto_poliza')){
 			$_POST['foto_emp'] = $this->upload->data()['file_name'];*/
-			$res = $this->AM->insertar($_POST,'clientes');
+			$res = $this->AM->insertar($_POST,'polizas');
 			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'cliente Creado'));
+				$this->codificar(array('ban'=>true,'msg'=>'poliza Creado'));
 			else
-				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar cliente','error'=>$res['error']));
+				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar poliza','error'=>$res['error']));
 	/*	}
 		else{
-			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el cliente','error'=>$this->upload->display_errors()));
+			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el poliza','error'=>$this->upload->display_errors()));
 		}*/
 	
 	}
 
-	//Funcion para activar o inactivar un cliente
+	//Funcion para activar o inactivar un poliza
 	public function activar(){
 		$condicion = $_POST['condicion'];
 		$datos = $_POST['datos'];
-		if($this->AM->actualizar($condicion,$datos,'clientes')){
+		if($this->AM->actualizar($condicion,$datos,'polizas')){
 			$this->codificar(array('ban'=>true,'msg'=>'Cambio aplicado'));
 		}
 		else
 			$this->codificar(array('ban'=>false,'msg'=>'Cambios No aplicados'));
 	}
 
-	//Funcion para actualizar datos de un cliente
+	//Funcion para actualizar datos de un poliza
 	public function actualizar(){
 			$condicion = array('id'=>$_POST['id']);
 			unset($_POST['id']);
-			$res = $this->AM->actualizar($condicion,$_POST,'clientes');
+			$res = $this->AM->actualizar($condicion,$_POST,'polizas');
 			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'cliente Actualizado'));
+				$this->codificar(array('ban'=>true,'msg'=>'poliza Actualizado'));
 			else
-				$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
+				$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar poliza','error'=>$res['error']));
 	
 
 
 	}
 
-	//Funcion para eliminar un cliente
+	//Funcion para eliminar un poliza
 	public function eliminar($id){
 		$condicion = array('id'=>$id);
-		if($this->AM->eliminar($condicion,'clientes')){
-			$this->codificar(array('ban'=>true,'msg'=>'cliente Eliminado'));
+		if($this->AM->eliminar($condicion,'polizas')){
+			$this->codificar(array('ban'=>true,'msg'=>'poliza Eliminado'));
 		}
 		else
 			$this->codificar(array('ban'=>false,'msg'=>'Error'));
 	}
 
 }
-

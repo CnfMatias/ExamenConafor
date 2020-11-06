@@ -16,6 +16,8 @@ $configuraciones_m = '';
 $perfiles_m = '';
 $empleados_m = '';
 $usuarios_m = '';
+$tecnicos_m = '';
+$polizas_m = '';
 $proveedores_m = '';
 $clientes_m = '';
 $prollos_m = '';
@@ -64,18 +66,18 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de empleados';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'usuarios') !== false:
-		$usuarios_m = 'active';
+    case strpos($url, 'tecnicos') !== false:
+		$tecnicos_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Usuarios';
-        $descri_m = 'Módulo para la creación y administración de usuarios';
+        $titulo_m = 'Administración / Técnicos';
+        $descri_m = 'Módulo para la creación y administración de técnicos';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'proveedores') !== false:
-		$proveedores_m = 'active';
+    case strpos($url, 'polizas') !== false:
+		$polizas_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Proveedores';
-        $descri_m = 'Módulo para la creación y administración de proveedores';
+        $titulo_m = 'Administración / Polizas';
+        $descri_m = 'Módulo para la creación y administración de polizas';
         $m_superior_admin = 'active open';
     break;
     case strpos($url, 'clientes') !== false:
@@ -167,12 +169,13 @@ switch (true) {
     <li class="nav-title">Menú</li>
     <li class="'.$m_superior_admin.'">
         <a href="#"><i class="fal fa-cogs m-r-10"></i><span class="nav-link-text"> Administración</span></a>
-        <ul>
-            <li class="'.$configuraciones_m.'">
+        <ul>';
+           /*  <li class="'.$configuraciones_m.'">
                 <a href="'.base_url().'configuraciones" title="Configuraciones" data-filter-tags="configuraciones">
                     <span class="nav-link-text">Configuraciones </span>
                 </a>
-            </li>
+            </li> */
+        $menu.='
             <li class="'.$empleados_m.'">
                 <a href="'.base_url().'empleados" title="Empleados" data-filter-tags="empleados">
                     <span class="nav-link-text">Empleados</span>
@@ -183,14 +186,14 @@ switch (true) {
                     <span class="nav-link-text">Clientes</span>
                 </a>
             </li>
-            <li class="'.$usuarios_m.'">
-                <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
-                    <span class="nav-link-text">Usuarios</span>
+            <li class="'.$tecnicos_m.'">
+                <a href="'.base_url().'tecnicos" title="Técnicos" data-filter-tags="tecnicos">
+                    <span class="nav-link-text">Técnicos</span>
                 </a>
             </li>    
-            <li class="'.$proveedores_m.'">
-                <a href="'.base_url().'proveedores" title="Proveedores" data-filter-tags="proveedores">
-                    <span class="nav-link-text">Proveedores</span>
+            <li class="'.$polizas_m.'">
+                <a href="'.base_url().'polizas" title="Polizas" data-filter-tags="polizas">
+                    <span class="nav-link-text">Polizas</span>
                 </a>
             </li>
         </ul>

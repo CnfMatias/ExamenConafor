@@ -6,7 +6,7 @@ class Componentes {
 	public function logo(){
 		return '<div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center" data-toggle="modal" data-target="#modal-shortcut">
-            <img src="'.base_url().'frontend/images/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
+            <img src="'.base_url().'frontend/images/logo.png" alt="SmartAdmin WebApp" style="width:50px" aria-roledescription="logo">
             <span class="page-logo-text mr-1"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
