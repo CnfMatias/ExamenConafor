@@ -197,21 +197,6 @@ switch (true) {
                 </a>
             </li>
         </ul>
-    </li>
-    <li class="'.$m_superior_oper.'">
-        <a href="#"><i class="fal fa-puzzle-piece"></i><span class="nav-link-text">Producción</span></a>
-        <ul>
-            <li class="'.$prollos_m.'">
-                <a href="'.base_url().'rollos" title="Producción de Rollos" data-filter-tags="producción rollo">
-                    <span class="nav-link-text">Producción de Rollos</span>
-                </a>
-            </li>
-            <li class="'.$corte_m.'">
-                <a href="'.base_url().'corte" title="Producción de Piezas" data-filter-tags="producción de piezas">
-                    <span class="nav-link-text">Programación de Corte</span>
-                </a>
-            </li>
-        </ul>
     </li>';
 ?>
     <ul id="js-nav-menu" class="nav-menu">
