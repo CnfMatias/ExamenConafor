@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?=base_url()?>frontend/js/jquery.mask.js"></script>
 <div class="row">
     <div class="col-md-4" style="border-right:1px solid #BBBBBB;vertical-align:middle; padding-right:30px">
         <div class="row m-t-20">
@@ -19,19 +20,19 @@
             <h5>Datos Personales</h5>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <label for="">Nombre:</label>
                 <input type="text"  name="nombre" class="form-control mayus" autocomplete="off" maxlength="200">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <label for="">Dirección:</label>
-                <input type="text" class="form-control mayus"  name="direccion" autocomplete="off" maxlength="18">
+                <input type="text" class="form-control mayus"  name="direccion" autocomplete="off" maxlength="200">
             </div>
         </div>
         <div class="row m-t-20">
              <div class="col-md-3">
                 <label for="">Correo Electronico:</label>
-                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="correo" maxlength="18">
+                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="correo" maxlength="200">
             </div>
             <div class="col-md-3">
                 <label for="">Telefono/Cel::</label>
@@ -70,6 +71,26 @@
                        
             </div>
         </div>
+        <div id="v_tecnico" style="display:none;">
+            <div class="row m-t-20">
+                <h5>Datos del técnico</h5>
+            </div>
+            <div class="row m-t-20">
+                <div class="col-md-4">
+                <label for="">Limite Credito</label>
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text"  name="limite_credito"  class="form-control mayus"  placeholder="0.00" autocomplete="off"  maxlength="7">
+                </div>
+                </div>
+                <div class="col-md-4">
+                <label for="">Maximo de servicios activos</label>
+                <input type="number"  name="max_servicios"  class="form-control mayus"   autocomplete="off"  maxlength="2">
+                </div>
+            </div>
+        </div>
     </div>
 </div>  
 
@@ -79,7 +100,13 @@
         <button id="btx_cancela_empleado" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
     </div>
 </div>
+
 <script>
+
+    $("input[name=tel]").mask('00-0000-0000');
+    $("input[name=monto_sueldo]").mask('000,000.00',{reverse:true});
+    $("input[name=limite_credito]").mask('000,000.00',{reverse:true});
+
     $(document).ready(function(){
         let valores = <?=json_encode($empleado)?>;
         $('input').each(function(){
@@ -97,5 +124,8 @@
         if(valores['foto_emp'] != ''){
             $('img[name=foto_emp]').attr('src','<?=base_url()?>frontend/emps/'+valores['foto_emp'])
         }
+
+         if($('input[name=perfil]').val() == 'Técnico')
+            $("#v_tecnico").show();
     })
 </script>

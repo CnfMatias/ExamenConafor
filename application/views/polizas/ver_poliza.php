@@ -6,9 +6,8 @@
         <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Cliente:</label>
-                <select name="cliente_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$cliente_nom?>
-                    </select>
+                <input name="cliente_nom" class="form-control mayus" autocomplete="off"  >
+                
             </div>
             <div class="col-md-4">
             <label for="">Costó:</label>
@@ -33,9 +32,7 @@
         <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Empleado:</label>
-                <select name="empleado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$emp_nom?>
-                    </select>
+                <input name="emp_nom" class="form-control mayus" autocomplete="off"  maxlength="200">
             </div>
         </div>
     </div>

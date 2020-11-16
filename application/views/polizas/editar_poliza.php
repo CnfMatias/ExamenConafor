@@ -8,7 +8,7 @@
             <input type="number" name="id" style="display:none">
             <div class="col-md-3">
                 <label for="">Cliente:</label>
-                <select name="cliente_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                <select name="cliente_id" class="form-control mayus" autocomplete="off"  maxlength="15">
                         <?=$cliente_nom?>
                     </select>
             </div>
@@ -25,21 +25,21 @@
         <div class="row m-t-20">
             <div class="col-md-4">
                 <label for="">Fecha de inició:</label>
-                <input type="date"  name="fecha_inicio" class="form-control" autocomplete="off"  maxlength="200">
+                <input type="date"  name="fecha_inicio" class="form-control" autocomplete="off"  maxlength="18">
             </div>
             <div class="col-md-4">
                 <label for="">Fecha final:</label>
                 <input type="date" class="form-control" autocomplete="off" name="fecha_fin" maxlength="18">
             </div>
         </div>
-        <div class="row m-t-20">
+        <!-- <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Empleado:</label>
                 <select name="empleado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$emp_nom?>
+                      
                     </select>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="row m-t-20">

@@ -51,8 +51,11 @@ class clientes extends CI_Controller {
 	//Funcion para traer la vista de nuevo cliente
 	public function nuevo(){
 		$data = $this->basicas();
-		$data['clientes'] = $this->crea_select('clientes');
-		$data['empleado'] = $this->crea_select('empleados');
+		//$data['clientes'] = $this->crea_select('clientes');
+		//$data['empleado'] = $this->crea_select('empleados');
+		$data['estados'] = $this->crea_select('c_estados');
+		$data['municipios'] = $this->crea_select('cat_municipio');
+		$data['publicidad'] = $this->crea_select('c_publicidad');
 		$this->load->view('clientes/nuevo_cliente',$data);
 		$this->load->view('clientes/clientes_js');
 		$this->load->view('footer',$data);
@@ -61,9 +64,8 @@ class clientes extends CI_Controller {
 	//Funcion para ver los datos de un cliente
 	public function ver($ide=null){
 		$data = $this->basicas();
-		//$data['puestos'] = $this->crea_select('c_perfiles');
 		$condicion = array('id'=>$ide);
-		$data['cliente'] = $this->AM->consulta_unica($condicion,'clientes');
+		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
 		$this->load->view('clientes/ver_cliente',$data);
 		$this->load->view('clientes/clientes_js');
 		$this->load->view('footer',$data);
@@ -72,8 +74,9 @@ class clientes extends CI_Controller {
 	//Funcion para cargar la vista de edicion de un cliente
 	public function editar($ide=null){
 		$data = $this->basicas();
-		$data['perfiles'] = $this->crea_select('c_perfiles');
-		$data['sueldos'] = $this->crea_select('c_sueldos');
+		$data['estados'] = $this->crea_select('c_estados');
+		$data['publicidad'] = $this->crea_select('c_publicidad');
+		//$data['municipios'] = $this->crea_select('cat_municipio');
 		$condicion = array('id'=>$ide);
 		$data['cliente'] = $this->AM->consulta_unica($condicion,'clientes');
 		$this->load->view('clientes/editar_cliente',$data);
@@ -83,25 +86,18 @@ class clientes extends CI_Controller {
 
 	//Funcion para guadar los datos de un cliente
 	public function save(){
-		//cargamos configuraciones
-		$config['upload_path'] = './frontend/emps/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = 1000;
-		$config['file_name'] = md5(date('Y-m-d h:i:s'));
-		//Cragamos libreria necesaria
-		$this->load->library('upload', $config);
-		//verificamos la carga del archivo
-		/*if($this->upload->do_upload('foto_cliente')){
-			$_POST['foto_emp'] = $this->upload->data()['file_name'];*/
+		//Pasos para guardar cliente
+		//Ejecutar función para generar folio de cliente
+		//Ejecutar función para insertar clientes quitando del POST los telefonos 
+		//Obtener el id del cliente insertado 
+		//Utilizar id de cliente e insertar los telefonos en la tabla r_clientes_tel (insertar usuario creador y fecha creación)
+	
 			$res = $this->AM->insertar($_POST,'clientes');
 			if($res['ban'])
 				$this->codificar(array('ban'=>true,'msg'=>'cliente Creado'));
 			else
 				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar cliente','error'=>$res['error']));
-	/*	}
-		else{
-			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el cliente','error'=>$this->upload->display_errors()));
-		}*/
+
 	
 	}
 

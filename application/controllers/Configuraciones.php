@@ -76,78 +76,106 @@ class Configuraciones extends CI_Controller {
 			else
 				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar el registro','error'=>$res['error']));
 	}
+
+	private function retorno_dia($dia){
+		switch (strtolower($dia)) {
+					case 'domingo':
+						return 0;
+					break;
+					case 'lunes':
+						return 1;
+					break;
+					case 'Martes':
+						return 2;
+					break;
+					case 'Miercoles':
+						return 3;
+					break;
+					case 'Jueves':
+						return 4;
+					break;
+					case 'Viernes':
+						return 5;
+					break;
+					case 'Sabado':
+						return 6;
+					break;
+					default:
+						return 7;
+					break;
+				}
+	}
 	
+	//Editar y Guardar Registros del Catalogo
 	public function save_catalogos($tabla){
 		//var_dump($_POST);
 		$condicion = array('id'=>$_POST['id']);
 		switch ($tabla) {
-			case 'vw_puestos':
-				$_POST['nombre'] = $_POST['puesto'];
-				$_POST['tipo_ingreso'] = ($_POST['ingreso'] == 'Sueldo')?1:2;
+			case 'vw_perfiles':
 				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				$_POST['monto'] = $_POST['s/c'];
 				unset($_POST['id']);
-				unset($_POST['puesto']);
-				unset($_POST['ingreso']);
-				unset($_POST['s/c']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_puestos');
+				$res = $this->AM->actualizar($condicion,$_POST,'c_perfiles');
 			break;
-			case 'vw_tipo_proveedor':
-				$_POST['nombre'] = $_POST['tipo'];
-				$_POST['estatus'] = (strtolower($_POST['estatus']) == 'activo')?1:0;
-				unset($_POST['tipo']);
+			case 'vw_equipos':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_equipos');
+			break;
+			case 'vw_marca':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_marca');
+			break;
+			case 'vw_publicidad':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_publicidad');
+			break;
+			case 'vw_sueldos':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_sueldos');
+			break;
+			case 'vw_horarios':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
 				unset($_POST['id']);
 				//var_dump($_POST);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_proveedores');
+				$_POST['dia_inicio'] = $this->retorno_dia($_POST['dia_inicio']);
+				$_POST['dia_final'] = $this->retorno_dia($_POST['dia_final']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_horarios');
 			break;
-			case 'vw_productos_servicios':
-				$_POST['estatus'] = (strtolower($_POST['estatus']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_productos_servicios');
-			break;
-			case 'vw_tipo_pago':
-				$_POST['estatus'] = (strtolower($_POST['estatus']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_pago');
-			break;
-			case 'vw_metodos_pago':
-				$_POST['estatus'] = (strtolower($_POST['estatus']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_metodos_pago');
-			break;
-			case 'vw_colores':
-				$_POST['estatus'] = (strtolower($_POST['estatus']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_colores');
-			break;
+
+			
 		}
+		//var_dump($res);
 		if($res['ban'])
 			$this->codificar(array('ban'=>true,'msg'=>'Datos Actualizados'));
 		else
 			$this->codificar(array('ban'=>false,'msg'=>'Error al actualizar la información','error'=>$res['error']));
 	}
-
+	//Eliminar Registros del Catalogo
 	public function eliminar(){
 		$condicion = array('id'=>$_POST['id']);
 		switch ($_POST['tabla']) {
-			case 'vw_puestos':
-				$res = $this->AM->eliminar($condicion,'c_puestos');
+			case 'vw_perfiles':
+				$res = $this->AM->eliminar($condicion,'c_perfiles');
 			break;
-			case 'vw_tipo_proveedor':
-				$res = $this->AM->eliminar($condicion,'c_tipo_proveedores');
+			case 'vw_equipos':
+				$res = $this->AM->eliminar($condicion,'c_equipos');
 			break;
-			case 'vw_productos_servicios':
+			case 'vw_marca':
+				$res = $this->AM->eliminar($condicion,'c_marca');
+			break;
+			case 'vw_publicidad':
 				$res = $this->AM->eliminar($condicion,'c_productos_servicios');
 			break;
-			case 'vw_tipo_pago':
-				$res = $this->AM->eliminar($condicion,'c_tipo_pago');
+			case 'vw_sueldos':
+				$res = $this->AM->eliminar($condicion,'c_sueldos');
 			break;
-			case 'vw_metodos_pago':
-				$res = $this->AM->eliminar($condicion,'c_metodos_pago');
+			case 'vw_horarios':
+				$res = $this->AM->eliminar($condicion,'c_horarios');
 			break;
-			case 'vw_colores':
-				$res = $this->AM->eliminar($condicion,'c_colores');
-			break;
+			
 		}
 		if($res){
 			$this->codificar(array('ban'=>true,'msg'=>'Registro Eliminado'));
@@ -156,3 +184,34 @@ class Configuraciones extends CI_Controller {
 			$this->codificar(array('ban'=>false,'msg'=>$res['error']));
 	}
 }
+
+
+/* 
+case 'vw_tipo_proveedor':
+				$_POST['nombre'] = $_POST['tipo'];
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['tipo']);
+				unset($_POST['id']);
+				//var_dump($_POST);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_proveedores');
+			break;
+			case 'vw_productos_servicios':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_productos_servicios');
+			break;
+			case 'vw_tipo_pago':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_pago');
+			break;
+			case 'vw_metodos_pago':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_metodos_pago');
+			break;
+			case 'vw_colores':
+				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'c_colores');
+			break; */

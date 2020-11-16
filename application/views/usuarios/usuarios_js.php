@@ -7,7 +7,7 @@ $(document).ready(function() {
         location.href = '<?=base_url()?>usuarios';
     })
 
-    //Botonazo de nuevo empleado
+    //Botonazo de nuevo usuario
     $("body").on('click','#btn_nvo_usuario',function(){
         location.href = '<?=base_url()?>usuarios/nuevo';
     })

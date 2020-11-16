@@ -30,6 +30,7 @@ $materiaprima_m = '';
 $compras_m = '';
 $ventas_m = '';
 $caja_chica_m = '';
+$accesos_m = '';
 
 $vacia_m = '';
 
@@ -87,6 +88,20 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de clientes';
         $m_superior_admin = 'active open';
     break;
+    case strpos($url, 'usuarios') !== false:
+		$usuarios_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / Usuarios';
+        $descri_m = 'Módulo para la creación y administración de usuarios';
+        $m_superior_admin = 'active open';
+    break;
+    /* case strpos($url, 'acionnes') !== false:
+		$accesos_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / accesos';
+        $descri_m = 'Módulo para la creación y administración de accesos';
+        $m_superior_admin = 'active open';
+    break; */
     case strpos($url, 'reloj') !== false:
 		$checador_m = 'active';
 		$fa_icon = 'fal fa-cogs';
@@ -169,31 +184,35 @@ switch (true) {
     <li class="nav-title">Menú</li>
     <li class="'.$m_superior_admin.'">
         <a href="#"><i class="fal fa-cogs m-r-10"></i><span class="nav-link-text"> Administración</span></a>
-        <ul>';
-           /*  <li class="'.$configuraciones_m.'">
+        <ul>
+            <li class="'.$configuraciones_m.'">
                 <a href="'.base_url().'configuraciones" title="Configuraciones" data-filter-tags="configuraciones">
                     <span class="nav-link-text">Configuraciones </span>
                 </a>
-            </li> */
-        $menu.='
+            </li> 
             <li class="'.$empleados_m.'">
                 <a href="'.base_url().'empleados" title="Empleados" data-filter-tags="empleados">
                     <span class="nav-link-text">Empleados</span>
+                </a>
+            </li>
+            <li class="'.$usuarios_m.'">
+                <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
+                    <span class="nav-link-text">Usuarios</span>
                 </a>
             </li>
             <li class="'.$clientes_m.'">
                 <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
                     <span class="nav-link-text">Clientes</span>
                 </a>
-            </li>
-            <li class="'.$tecnicos_m.'">
-                <a href="'.base_url().'tecnicos" title="Técnicos" data-filter-tags="tecnicos">
-                    <span class="nav-link-text">Técnicos</span>
-                </a>
-            </li>    
+            </li> 
             <li class="'.$polizas_m.'">
                 <a href="'.base_url().'polizas" title="Polizas" data-filter-tags="polizas">
                     <span class="nav-link-text">Polizas</span>
+                </a>
+            </li>
+            <li class="'.$accesos_m.'">
+                <a href="'.base_url().'accesos" title="Accesos" data-filter-tags="Accesos">
+                    <span class="nav-link-text">Accesos</span>
                 </a>
             </li>
         </ul>

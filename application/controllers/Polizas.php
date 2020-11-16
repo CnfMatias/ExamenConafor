@@ -42,7 +42,7 @@ class Polizas extends CI_Controller {
 	//Funcion de ver polizas en tabla
 	public function index(){
 		$data = $this->basicas();
-		$data['cliente_nom'] = $this->crea_select('clientes');
+		//$data['cliente_nom'] = $this->crea_select('clientes');
 		$data['polizas'] = $this->AM->all('vw_polizas','json');
 		$this->load->view('polizas/polizas',$data);
 		$this->load->view('polizas/polizas_js');
@@ -65,7 +65,7 @@ class Polizas extends CI_Controller {
 		$data['cliente_nom'] = $this->crea_select('clientes');
 		$data['emp_nom'] = $this->crea_select('empleados');
 		$condicion = array('id'=>$ide);
-		$data['poliza'] = $this->AM->consulta_unica($condicion,'polizas');
+		$data['poliza'] = $this->AM->consulta_unica($condicion,'vw_polizas');
 		$this->load->view('polizas/ver_poliza',$data);
 		$this->load->view('polizas/polizas_js');
 		$this->load->view('footer',$data);

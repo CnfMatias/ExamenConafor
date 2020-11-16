@@ -8,7 +8,7 @@
             <div class="col-md-3">
                 <label for="">Cliente:</label>
                 <select name="cliente_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$clientes?>
+                        <?=$cliente_nom?>
                     </select>
             </div>
             <div class="col-md-4">
@@ -35,7 +35,7 @@
             <div class="col-md-3">
                 <label for="">Empleado:</label>
                 <select name="empleado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$empleado?>
+                        <?=$emp_nom?>
                     </select>
             </div>
         </div>

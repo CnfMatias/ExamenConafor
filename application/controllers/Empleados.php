@@ -54,7 +54,7 @@ class Empleados extends CI_Controller {
 		$data['perfiles'] = $this->crea_select('c_perfiles');
 		$data['sueldos'] = $this->crea_select('c_sueldos');
 		$data['estados'] = $this->crea_select('c_estados');
-		$data['estatus_genera_id']= $this->crea_select('c_estatus_general');
+		//$data['estatus_general_id']= $this->crea_select('c_estatus_general');
 		$this->load->view('empleados/nuevo_empleado',$data);
 		$this->load->view('empleados/empleados_js');
 		$this->load->view('footer',$data);
@@ -89,6 +89,7 @@ class Empleados extends CI_Controller {
 	//Funcion para guadar los datos de un empleado
 	public function save(){
 		//cargamos configuraciones
+		//var_dump($_POST);
 		$config['upload_path'] = './frontend/emps/';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size'] = 1000;
@@ -96,17 +97,18 @@ class Empleados extends CI_Controller {
 		//Cragamos libreria necesaria
 		$this->load->library('upload', $config);
 		//verificamos la carga del archivo
-		/*if($this->upload->do_upload('foto_empleado')){
-			$_POST['foto_emp'] = $this->upload->data()['file_name'];*/
+		if($this->upload->do_upload('foto_empleado')){
+			$_POST['foto_emp'] = $this->upload->data()['file_name'];
+			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->insertar($_POST,'empleados');
 			if($res['ban'])
 				$this->codificar(array('ban'=>true,'msg'=>'Empleado Creado'));
 			else
 				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar empleado','error'=>$res['error']));
-	/*	}
+		}
 		else{
 			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el empleado','error'=>$this->upload->display_errors()));
-		}*/
+		}
 	
 	}
 
@@ -135,6 +137,7 @@ class Empleados extends CI_Controller {
 			$_POST['foto_emp'] = $this->upload->data()['file_name'];
 			$condicion = array('id'=>$_POST['id']);
 			unset($_POST['id']);
+			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
 			if($res['ban'])
 				$this->codificar(array('ban'=>true,'msg'=>'Empleado Actualizado'));
@@ -144,6 +147,7 @@ class Empleados extends CI_Controller {
 		else{
 			$condicion = array('id'=>$_POST['id']);
 			unset($_POST['id']);
+			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
 			if($res['ban'])
 				$this->codificar(array('ban'=>true,'msg'=>'Empleado Actualizado'));

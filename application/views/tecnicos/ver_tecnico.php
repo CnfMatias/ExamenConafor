@@ -80,9 +80,8 @@
         <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Empleado:</label>
-                <select name="empleado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                        <?=$empleado?>
-                    </select>
+                <input name="nombre" class="form-control mayus" autocomplete="off">
+                        
             </div>
             <div class="col-md-4">
             <label for="">Límite de crédito:</label>

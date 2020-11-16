@@ -42,6 +42,7 @@ class Tecnicos extends CI_Controller {
 	//Funcion de ver tecnicos en tabla
 	public function index(){
 		$data = $this->basicas();
+		//$data['tecnicos'] = $this->AM->all('tecnicos','json');
 		$data['tecnicos'] = $this->AM->all('vw_tecnicos','json');
 		$this->load->view('tecnicos/tecnicos',$data);
 		$this->load->view('tecnicos/tecnicos_js');
@@ -52,8 +53,7 @@ class Tecnicos extends CI_Controller {
 	public function nuevo(){
 		$data = $this->basicas();
 		$data['empleado'] = $this->crea_select('empleados');
-		//$data['sueldos'] = $this->crea_select('c_sueldos');
-		//$data['estatus_genera_id']= $this->crea_select('c_estaus_general');
+		$data['estatus_genera_id']= $this->crea_select('c_estatus_general');
 		$this->load->view('tecnicos/nuevo_tecnico',$data);
 		$this->load->view('tecnicos/tecnicos_js');
 		$this->load->view('footer',$data);
@@ -62,7 +62,7 @@ class Tecnicos extends CI_Controller {
 	//Funcion para ver los datos de un tecnico
 	public function ver($ide=null){
 		$data = $this->basicas();
-		//$data['puestos'] = $this->crea_select('c_perfiles');
+		$data['nombre'] = $this->crea_select('empleados');
 		$condicion = array('id'=>$ide);
 		$data['tecnico'] = $this->AM->consulta_unica($condicion,'vw_tecnicos');
 		$this->load->view('tecnicos/ver_tecnico',$data);

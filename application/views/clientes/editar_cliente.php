@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?=base_url()?>frontend/js/jquery.mask.js"></script>
 <?php echo form_open_multipart('clientes/actualizar');?>
 <div class="row">
     
@@ -7,11 +8,11 @@
         </div>
         <div class="row m-t-20">
              <input type="text"  name="id" style="display:none">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="">Nombre:</label>
                 <input type="text"  name="nombre"  class="form-control mayus" autocomplete="off" placeholder="Max 150 caracteres" maxlength="200">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label for="">Telefono/Cel:</label>
                 <input type="tel"  name="telefono"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="200">
             </div>
@@ -23,16 +24,34 @@
         <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Numero Exterior:</label>
-                <input type="number"  name="num_ext"  class="form-control mayus" autocomplete="off" placeholder="Max 200 caracteres" maxlength="200">
+                <input type="tex"  name="num_ext"  class="form-control mayus" autocomplete="off" placeholder="Max 200 caracteres" maxlength="200">
             </div>
             <div class="col-md-3">
                 <label for="">Numero Interior:</label>
-                <input type="number"  name="num_int" class="form-control mayus" autocomplete="off" placeholder="Max 150 caracteres" maxlength="200">
+                <input type="tex"  name="num_int" class="form-control mayus" autocomplete="off" placeholder="Max 150 caracteres" maxlength="200">
             </div>
             <div class="col-md-6">
                 <label for="">Entre Calles:</label>
                 <input type="text"  name="entre_calles"  class="form-control mayus" autocomplete="off" placeholder="Max 250 caracteres" maxlength="250">
             </div>
+        </div>
+        <div class="row m-t 20">
+            <div class="col-md-4">
+                <label for="">Colonia:</label>
+                <input type="text"  name="colonia"  class="form-control mayus" autocomplete="off" placeholder="Max 250 caracteres" maxlength="200">
+            </div>
+            <div class="col-md-4">
+                <label for="">Estado:</label>
+                <select name="estado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                        <?=$estados?>
+                    </select>
+            </div>
+            <!-- <div class="col-md-4">
+                <label for="">Municipio:</label>
+                <select name="municipio_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                        
+                    </select>
+            </div> -->
         </div>
         <div class="row m-t-20">
             <div class="col-md-4">
@@ -66,4 +85,11 @@
             $(this).val(valores[$(this).attr('name')])
         })
     })
+</script>
+
+<script>
+    
+    $("input[name=tel]").mask('00-0000-0000');
+    $("input[name=celular]").mask('00-0000-0000');
+
 </script>

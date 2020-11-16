@@ -19,17 +19,29 @@
                 <div id="div_catalogos">
                     <div class="row">
                         <div class="col col-md-4 offset-md-2">
-                            <button tab="vw_puestos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Puestos</button>
+                            <button tab="vw_perfiles" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Perfiles</button>
                         </div>
                         <div class="col col-md-4">
-                            <button tab="vw_colores" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Colores</button>
+                            <button tab="vw_equipos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Equipos</button>
                         </div>
                     </div>
                     <div class="row m-t-20">
                         <div class="col col-md-4 offset-md-2">
-                            <button tab="vw_metodos_pago" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo Métodos de Pago a Proveedores</button>
+                            <button tab="vw_marca" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Marcas</button>
+                        </div>
+                        <div class="col col-md-4">
+                            <button tab="vw_publicidad" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de publicidad</button>
                         </div>
                     </div>
+                    <div class="row m-t-20">
+                        <div class="col col-md-4 offset-md-2">
+                            <button tab="vw_sueldos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Sueldos</button>
+                        </div>
+                        <div class="col col-md-4">
+                            <button tab="vw_horarios" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Horarios</button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="row m-t-30" id="div_tabla" style="display:none;">
                     <div class="col-md-8 offset-md-2">
@@ -207,6 +219,8 @@
             })
     })
 
+    //Modal para formulario del nuevo registro 
+
     $('body').on('click', '.btx_nuevo', function() {
         let cabecera = '<form id="frm_modal" method="post">';
         let botones = '<div class="row m-t-20 text-right"><div class="col-md-12"><button class="btn btn-danger btx_cancelar_m"><i class="fa fa-reply"></i> Cancelar</button><button class="btn btn-primary btx_save_m m-l-5"><i class="fa fa-save"></i> Guardar</button></div></div></form>';
@@ -214,35 +228,35 @@
         let titulo = '';
 
         switch (tabla) {
-            case 'vw_puestos':
-                tb_php = 'c_puestos';
-                titulo = 'Nuevo Puesto';
-                html = '<div class="row text-left"><div class="col-md-5"><label for="">Nombre del Puesto:</label><input type="text" class="form-control" name="nombre" required></div><div class="col-md-4"><label for="">Tipo de Ingreso:</label><select name="tipo_ingreso" class="form-control" required><option value="1">Sueldo</option><option value="2">Comision</option></select></div><div class="col-md-3"><label for="">Monto de Pago:</label><input type="text" class="form-control" name="monto" required></div></div>';
+            case 'vw_perfiles':
+                tb_php = 'c_perfiles';
+                titulo = 'Nuevo Perfil';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Perfil:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_tipo_proveedor':
-                tb_php = 'c_tipo_proveedores';
-                titulo = 'Tipo de Proveedor';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Tipo de Proveedor:</label><input required type="text" class="form-control" name="nombre"></div></div>';
+            case 'vw_equipos':
+                tb_php = 'c_equipos';
+                titulo = 'Tipo de Equipo';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Equipo:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_productos_servicios':
-                tb_php = 'c_productos_servicios';
-                titulo = 'Tipo de Producto o Servicio';
-                html = '<div class="row text-left"><div class="col-md-8"><label for="">Nombre del Producto o Servicio:</label><input required class="form-control" name="nombre" type="text"></div><div class="col-md-4"><label for="">Unidad de Medida:</label><input required class="form-control" name="unidad_medida" type="text"></div></div>';
+            case 'vw_marca':
+                tb_php = 'c_marca';
+                titulo = 'Tipo de Marca';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre de la Marca:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_tipo_pago':
-                tb_php = 'c_tipo_pago';
-                titulo = 'Tipo de Pago a Proveedores';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Tipo de Pago:</label><input required class="form-control" name="nombre" type="text"></div></div>';
+            case 'vw_publicidad':
+                tb_php = 'c_publicidad';
+                titulo = 'Tipo de Publicidad';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Publicidad:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_metodos_pago':
-                tb_php = 'c_metodos_pago';
-                titulo = 'Metodos de Pago a Empleados';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Metodo de Pago:</label><input required class="form-control" name="nombre" type="text"></div></div>';
+                case 'vw_sueldos':
+                tb_php = 'c_sueldos';
+                titulo = 'Tipo de Sueldo';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Sueldos:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_colores':
-                tb_php = 'c_colores';
-                titulo = 'Catálogo de Colores';
-                html = '<div class="row text-left"><div class="col-md-8"><label for="">Nombre del Color:</label><input required class="form-control" name="nombre" type="text"></div><div class="col-md-4"><label>Color:</label><input class="form-control" type="color" name="color_hex"></div></div>';
+            case 'vw_horarios':
+                tb_php = 'c_horarios';
+                titulo = 'Tipo de Horario';
+                html = '<div class="row"> <div class="col-md-8 offset-md-2"> <div class="row"> <div class="col-md-12 text-left"> <label> Nombre: </label> <input type="text" class="form-control" name="nombre" maxlength="200"> </div></div><div class="row m-t-20"> <div class="col-md-6"> <label> Día de inicio: </label> <select class="form-control" name="dia_inicio"> <option value="">Selecciona</option> <option value="0">Domingo</option> <option value="1">lunes</option> <option value="2">Martes</option> <option value="3">Miercoles</option> <option value="4">Jueves</option> <option value="5">Viernes</option> <option value="6">Sabado</option> </select> </div><div class="col-md-6"> <label> Día de Final: </label> <select class="form-control" name="dia_final"> <option value="">Selecciona</option> <option value="0">Domingo</option> <option value="1">lunes</option> <option value="2">Martes</option> <option value="3">Miercoles</option> <option value="4">Jueves</option> <option value="5">Viernes</option> <option value="6">Sabado</option> </select> </div></div><div class="row m-t-20"> <div class="col-md-6"> <label>Hora inicio</label> <input type="time" class="form-control" name="hora_inicio"> </div><div class="col-md-6"> <label>Hora Final</label> <input type="time" class="form-control" name="hora_final"> </div></div></div></div>';
                 break;
         }
         modal(titulo, cabecera + html + botones);
@@ -282,3 +296,4 @@
 
     })
 </script>
+
