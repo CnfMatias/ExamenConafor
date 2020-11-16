@@ -37,7 +37,18 @@ class clientes extends CI_Controller {
                $valores .= '<option value="' . $valor->id . '">' . $valor->nombre . '</option>';
         }
         return $valores;
-    }
+	}
+	
+	public function crea_select_array($array,$id=null){
+		$valores = "<option value=''>Selecciona</option>";
+		foreach ($array as $valor) {
+            if ($id != null && $valor->id == $id)
+               $valores .= '<option selected value="' . $valor->id . '">' . $valor->nombre . '</option>';
+            else
+               $valores .= '<option value="' . $valor->id . '">' . $valor->nombre . '</option>';
+        }
+        return $valores;
+	}
 
 	//Funcion de ver clientes en tabla
 	public function index(){
@@ -51,10 +62,7 @@ class clientes extends CI_Controller {
 	//Funcion para traer la vista de nuevo cliente
 	public function nuevo(){
 		$data = $this->basicas();
-		//$data['clientes'] = $this->crea_select('clientes');
-		//$data['empleado'] = $this->crea_select('empleados');
-		$data['estados'] = $this->crea_select('c_estados');
-		$data['municipios'] = $this->crea_select('cat_municipio');
+		$data['estados'] = $this->crea_select('vw_estados');
 		$data['publicidad'] = $this->crea_select('c_publicidad');
 		$this->load->view('clientes/nuevo_cliente',$data);
 		$this->load->view('clientes/clientes_js');
@@ -87,18 +95,28 @@ class clientes extends CI_Controller {
 	//Funcion para guadar los datos de un cliente
 	public function save(){
 		//Pasos para guardar cliente
-		//Ejecutar función para generar folio de cliente
-		//Ejecutar función para insertar clientes quitando del POST los telefonos 
-		//Obtener el id del cliente insertado 
-		//Utilizar id de cliente e insertar los telefonos en la tabla r_clientes_tel (insertar usuario creador y fecha creación)
-	
-			$res = $this->AM->insertar($_POST,'clientes');
-			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'cliente Creado'));
-			else
-				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar cliente','error'=>$res['error']));
-
-	
+		$condicion = array('estado_id'=>$_POST['estado_id']);
+		$_POST['folio_cliente'] = $this->AM->consulta_unica($condicion,'vw_folio_clientes')->folio;
+		$tels['tel'] = $_POST['telefono'];
+		$tels['cel'] = $_POST['celular'];
+		unset($_POST['telefono']);
+		unset($_POST['celular']);
+		$_POST['usuario_registro'] = 200;
+		$_POST['fecha_registro'] = date('Y-m-d H:i:s');
+		//Ejecutar función para insertar clientes quitando del POST los telefonos
+		$res = $this->AM->insertar($_POST,'clientes');
+		if($res['ban']){
+			$tels['cliente_id'] = $res['id'];
+			$tels['usuario_registro'] = 200;
+			$tels['fecha_registro'] = date('Y-m-d H:i:s');
+			$res2 = $this->AM->insertar($tels,'r_cliente_tel');
+			if($res2['ban']){
+				$this->codificar(array('ban'=>true,'msg'=>'Cliente creado'));
+			}
+		}
+		else{
+			$this->codificar(array('ban'=>false,'msg'=>'Error al guardar cliente','error'=>$res['error']));
+		}
 	}
 
 	//Funcion para activar o inactivar un cliente
@@ -121,9 +139,6 @@ class clientes extends CI_Controller {
 				$this->codificar(array('ban'=>true,'msg'=>'cliente Actualizado'));
 			else
 				$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
-	
-
-
 	}
 
 	//Funcion para eliminar un cliente
@@ -134,6 +149,11 @@ class clientes extends CI_Controller {
 		}
 		else
 			$this->codificar(array('ban'=>false,'msg'=>'Error'));
+	}
+
+	public function municipios_get(){
+		$condicion = array('cve_ent'=>$_POST['cve_ent']);
+		echo $this->crea_select_array($this->AM->consulta($condicion,'vw_municipios'));
 	}
 
 }

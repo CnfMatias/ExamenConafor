@@ -248,11 +248,11 @@
                 titulo = 'Tipo de Publicidad';
                 html = '<div class="row text-left"><div class="col-md-12"><label for="">Publicidad:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-                case 'vw_sueldos':
+            case 'vw_sueldos':
                 tb_php = 'c_sueldos';
                 titulo = 'Tipo de Sueldo';
                 html = '<div class="row text-left"><div class="col-md-12"><label for="">Sueldos:</label><input required class="form-control" name="nombre" type="text"></div></div>';
-                break;
+            break;
             case 'vw_horarios':
                 tb_php = 'c_horarios';
                 titulo = 'Tipo de Horario';
@@ -260,7 +260,6 @@
                 break;
         }
         modal(titulo, cabecera + html + botones);
-        numero('input[name=monto]');
     })
 
     $('body').on('click', '.btx_cancelar_m', function() {
