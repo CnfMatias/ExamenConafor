@@ -1,11 +1,13 @@
+<script type="text/javascript" src="<?=base_url()?>frontend/js/jquery.mask.js"></script>
 <?php echo form_open_multipart('Tecnicos/save');?>
 <div class="row">
-    <div class="col-md-8" style="padding-left:30px">
+    <div class="col-md-8 offset-md-2">
         <div class="row m-t-20">
             <h5>Datos Personales</h5>
+            <hr class="style">
         </div>
-        <div class="row m-t-20">
-            <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-4">
                 <label for="">Cliente:</label>
                 <select name="cliente_id" class="form-control mayus" autocomplete="off"  maxlength="200">
                         <?=$cliente_nom?>
@@ -17,14 +19,14 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
             </div>
-            <input type="number" step="0.01" name="costo"  class="form-control mayus" autocomplete="off"  maxlength="200">
+            <input type="text"  name="costo"  class="form-control mayus"  placeholder="0.00" autocomplete="off"  maxlength="7">
             </div>
             </div>
         </div>
         <div class="row m-t-20">
             <div class="col-md-4">
                 <label for="">Fecha de inició:</label>
-                <input type="date"  name="fecha_inicio" class="form-control" autocomplete="off"  maxlength="200">
+                <input type="date"  name="fecha_inicio" class="form-control" autocomplete="off">
             </div>
             <div class="col-md-4">
                 <label for="">Fecha final:</label>
@@ -49,3 +51,11 @@
     </div>
 </div>
 </form>
+
+
+<script>
+
+        $("input[name=costo]").mask('000,000.00',{reverse:true});
+
+
+</script>

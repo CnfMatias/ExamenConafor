@@ -31,6 +31,8 @@
     var table = new Tabulator("#tabla_empleados", {
         layout:"fitColumns",
         reactiveData:true,
+        pagination:"local", //enable local pagination.
+        paginationSize:10,
         data:<?=$empleados?>,
         columns:columnas
     });

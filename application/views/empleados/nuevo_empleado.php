@@ -58,7 +58,7 @@
                         <?=$sueldos?>
                     </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
             <label for="">Sueldo:</label>
             <div class="input-group mb-3">
             <div class="input-group-prepend">

@@ -14,7 +14,8 @@
         {title:"Nombre", field:"nombre", sorter:"string",width:200,headerFilter:"input"},
         {title:"Calle", field:"calle", sorter:"string", align:'center',width:150,headerFilter:"input"},
         {title:"Correo", field:"email", sorter:"string",align:'center',width:120, headerFilter:"input"},
-        {title:"Telefono/cel", field:"telefono", sorter:"number",align:'center',width:180, headerFilter:"input"}
+        {title:"Telefono", field:"tel", sorter:"string",align:'center',width:180, headerFilter:"input"},
+        {title:"Celular", field:"cel", sorter:"string",align:'center',width:180, headerFilter:"input"}
     ];
 
     let icons = function(cell, formatterParams){
@@ -29,6 +30,8 @@
     var table = new Tabulator("#tabla_clientes", {
         layout:"fitColumns",
         reactiveData:true,
+        pagination:"local", //enable local pagination.
+        paginationSize:10,
         data:<?=$clientes?>,
         columns:columnas
     });

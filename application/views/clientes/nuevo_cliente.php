@@ -13,11 +13,11 @@
             </div>
             <div class="col-md-3">
                 <label for="">Telefono:</label>
-                <input type="tel"  name="telefono"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="11">
+                <input type="tel"  name="tel"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="11">
             </div>
             <div class="col-md-3">
                 <label for="">Celular:</label>
-                <input type="tel"  name="celular"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="11">
+                <input type="tel"  name="cel"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="11">
             </div>
         </div>
         <div class="row m-t-20">
@@ -90,8 +90,8 @@
 
 <script>
     
-    $("input[name=telefono]").mask('00-0000-0000');
-    $("input[name=celular]").mask('00-0000-0000');
+    $("input[name=tel]").mask('00-0000-0000');
+    $("input[name=cel]").mask('00-0000-0000');
 
     $('body').on('change','select[name=estado_id]',function(){
         let cve_ent = $(this).val();

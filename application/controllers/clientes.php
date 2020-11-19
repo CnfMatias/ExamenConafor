@@ -38,7 +38,7 @@ class clientes extends CI_Controller {
         }
         return $valores;
 	}
-	
+	//Funcion para crear select de los estados y municipios
 	public function crea_select_array($array,$id=null){
 		$valores = "<option value=''>Selecciona</option>";
 		foreach ($array as $valor) {
@@ -53,7 +53,7 @@ class clientes extends CI_Controller {
 	//Funcion de ver clientes en tabla
 	public function index(){
 		$data = $this->basicas();
-		$data['clientes'] = $this->AM->all('clientes','json');
+		$data['clientes'] = $this->AM->all('vw_clientes','json');
 		$this->load->view('clientes/clientes',$data);
 		$this->load->view('clientes/clientes_js');
 		$this->load->view('footer',$data);
@@ -86,7 +86,7 @@ class clientes extends CI_Controller {
 		$data['publicidad'] = $this->crea_select('c_publicidad');
 		//$data['municipios'] = $this->crea_select('cat_municipio');
 		$condicion = array('id'=>$ide);
-		$data['cliente'] = $this->AM->consulta_unica($condicion,'clientes');
+		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
 		$this->load->view('clientes/editar_cliente',$data);
 		$this->load->view('clientes/clientes_js');
 		$this->load->view('footer',$data);
@@ -97,10 +97,10 @@ class clientes extends CI_Controller {
 		//Pasos para guardar cliente
 		$condicion = array('estado_id'=>$_POST['estado_id']);
 		$_POST['folio_cliente'] = $this->AM->consulta_unica($condicion,'vw_folio_clientes')->folio;
-		$tels['tel'] = $_POST['telefono'];
-		$tels['cel'] = $_POST['celular'];
-		unset($_POST['telefono']);
-		unset($_POST['celular']);
+		$tels['tel'] = $_POST['tel'];
+		$tels['cel'] = $_POST['cel'];
+		unset($_POST['tel']);
+		unset($_POST['cel']);
 		$_POST['usuario_registro'] = 200;
 		$_POST['fecha_registro'] = date('Y-m-d H:i:s');
 		//Ejecutar función para insertar clientes quitando del POST los telefonos
@@ -133,12 +133,24 @@ class clientes extends CI_Controller {
 	//Funcion para actualizar datos de un cliente
 	public function actualizar(){
 			$condicion = array('id'=>$_POST['id']);
-			unset($_POST['id']);
-			$res = $this->AM->actualizar($condicion,$_POST,'clientes');
-			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'cliente Actualizado'));
-			else
-				$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
+			$tels['tel'] = $_POST['tel'];
+			$tels['cel'] = $_POST['cel'];
+			unset($_POST['tel']);
+			unset($_POST['cel']);
+			$tels['cliente_id'] = $_POST['id'];
+			$tels['usuario_registro'] = 200;
+			$tels['fecha_registro'] = date('Y-m-d H:i:s');
+			$res2 = $this->AM->insertar($tels,'r_cliente_tel');
+			if($res2['ban']){
+				unset($_POST['id']);
+				$res = $this->AM->actualizar($condicion,$_POST,'clientes');
+				if($res['ban'])
+					$this->codificar(array('ban'=>true,'msg'=>'cliente Actualizado'));
+				else
+					$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
+			}
+				else
+					$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
 	}
 
 	//Funcion para eliminar un cliente

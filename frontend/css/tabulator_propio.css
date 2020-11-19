@@ -29,7 +29,7 @@
   box-sizing: border-box;
   width: 100%;
   border-bottom: 3px solid rgb(39, 108, 173);
-  background-color: #3f91c7;
+  background-color: #276d9c;
   color: #fff;
   font-weight: bold;
   white-space: nowrap;
@@ -49,7 +49,7 @@
   position: relative;
   box-sizing: border-box;
   border-right: 1px solid rgb(39, 108, 173);
-  background-color: #3f91c7;
+  background-color: #276d9c;
   text-align: left;
   vertical-align: bottom;
   overflow: hidden;

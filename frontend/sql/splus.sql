@@ -2946,12 +2946,7 @@ CREATE TABLE `usuarios` (
 
 -- --------------------------------------------------------
 
---
--- Estructura Stand-in para la vista `vw_clientes`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `vw_clientes` (
-);
+
 
 -- --------------------------------------------------------
 
@@ -3159,27 +3154,20 @@ CREATE TABLE `vw_usuarios` (
 --
 -- Estructura para la vista `vw_clientes`
 --
-DROP TABLE IF EXISTS `vw_clientes`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_clientes`  AS  select `cln`.`id` AS `id`,`cln`.`folio_cliente` AS `folio_cliente`,`cln`.`nombre` AS `nombre`,`cln`.`calle` AS `calle`,`cln`.`num_ext` AS `num_ext`,`cln`.`num_int` AS `num_int`,`cln`.`entre_calles` AS `entre_calles`,`cln`.`colonia` AS `colonia`,`cestados`.`nombre` AS `estado`,`cmunicipio`.`nombre` AS `municipio`,`cln`.`codigo_postal` AS `codigo_postal`,`cln`.`email` AS `email`,`cestatus`.`nombre` AS `estatus`,`cpublicidad`.`nombre` AS `publicidad`,`rct`.`tel` AS `tel`,`rct`.`cel` AS `cel` from (((((`clientes` `cln` left join `c_publicidad` `cpublicidad` on(`cln`.`publicidad_id` = `cpublicidad`.`id`)) left join `c_estados` `cestados` on(`cln`.`estado_id` = `cestados`.`id`)) left join `cat_municipio` `cmunicipio` on(`cln`.`municipio_id` = `cmunicipio`.`id`)) left join `c_estatus_general` `cestatus` on(`cln`.`estatus_general_id` = `cestatus`.`id`)) left join `r_cliente_tel` `rct` on(`rct`.`id` in (select max(`r_cliente_tel`.`id`) AS `id` from `r_cliente_tel` where `r_cliente_tel`.`cliente_id` = `cln`.`id`))) order by `cln`.`id` ;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vw_empleados`
 --
-DROP TABLE IF EXISTS `vw_empleados`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_empleados`  AS  select `emp`.`id` AS `id`,`emp`.`nombre` AS `nombre`,`emp`.`direccion` AS `direccion`,`emp`.`tel` AS `tel`,`emp`.`fecha_nacimiento` AS `fecha_nacimiento`,`emp`.`foto_emp` AS `foto_emp`,`cper`.`nombre` AS `perfil`,`csuel`.`nombre` AS `tipo_sueldo`,`emp`.`monto_sueldo` AS `monto_sueldo`,`cestatus`.`nombre` AS `estatus`,`emp`.`correo` AS `correo`,`cestados`.`nombre` AS `estado`,`emp`.`activo` AS `activo`,`emp`.`limite_credito` AS `limite_credito`,`emp`.`max_servicios` AS `max_servicios` from ((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) ;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vw_equipos`
 --
-DROP TABLE IF EXISTS `vw_equipos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_equipos`  AS  select `c_equipos`.`id` AS `id`,`c_equipos`.`nombre` AS `nombre`,case when `c_equipos`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_equipos` ;
 
 -- --------------------------------------------------------
 
