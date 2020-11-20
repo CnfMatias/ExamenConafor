@@ -1,4 +1,6 @@
 <script type="text/javascript" src="<?=base_url()?>frontend/js/jquery.mask.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' />
 <?php echo form_open_multipart('clientes/save');?>
 <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -79,15 +81,25 @@
             </div>
         </div>
     </div>
-</div>                
+</div>
+<div class="row m-t-20">
+    <div class="col-md-8 offset-md-2 text-right">
+    <button type="button" id="btn_previo_mapa" class="btn btn-success">Ver mapa</button>
+    </div>
+</div>
+<div class="row m-t-20">
+    <div class="col-md-8 offset-md-2">
+        <div id="map"></div>
+    </div>
+</div>           
 <div class="row m-t-20">
     <div class="col-md-12 text-right">
-    <button id="btx_cancela_cliente" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-ban m-r-5"></i> Cancelar</button>
+        <button type="button" id="btx_cancela_cliente" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-ban m-r-5"></i> Cancelar</button>
         <button type="submit" class="btn btn-primary waves-effect waves-themed"><i class="fa fa-save m-r-5"></i> Crear Cliente</button>
     </div>
 </div>
-</form>
 
+</form>
 <script>
     
     $("input[name=tel]").mask('00-0000-0000');

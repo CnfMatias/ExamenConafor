@@ -109,5 +109,77 @@ $(document).ready(function(){
         modal('Foto cliente','<div class="row"><div class="col-md-12"><img style="width:100%" src="'+src+'"></div></div>');
     })
 
+    $("body").on('click','#btn_previo_mapa',function(){
+        // limpiar mapa
+        $("#map").html('');
+        //Geocoding para envio de direccion
+        let calle = $('input[name=calle]').val();
+        let num_ext = $('input[name=num_ext]').val();
+        let mun = $('select[name=municipio_id]').text();
+        let est = $('select[name=estado_id]').text();
+        $.ajax({
+            url: 'http://api.positionstack.com/v1/forward',
+            data: {
+            access_key: 'de898282bbee9da9fac2d447c4dc88c9',
+            query: ''+calle+' '+num_ext+', '+mun+', '+est+', México',
+            country: 'MX',
+            region: 'Jalisco',
+            locality: 'Tala',
+            //limit: 1
+            }
+        }).done(function(data) {
+            let latitud = data.data[0].latitude;
+            let longitud = data.data[0].longitude;
+            console.log(data)
+            //funcion paa buscar regios y localidad en los resultados de un array y mostrar las cordenadas encontradas 
+            carga_mapa('map',longitud,latitud);
+        });        
+    })
+
+    function carga_mapa(id,latitud,longitud){
+        let coordenadas = '';
+        mapboxgl.accessToken =
+        "pk.eyJ1IjoiYnVtYXBlIiwiYSI6ImNrMnNuMzlrYTEyZTAzZG13M25rYTVtbDUifQ.NMLhM4WbjCNL0W3PCMTgDA";
+        var map = new mapboxgl.Map({
+        container: id,
+        style: "mapbox://styles/mapbox/streets-v11",
+        zoom: 11,
+        center: [latitud,longitud]
+        });
+
+        let auxiliar = []
+        auxiliar.push({
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [latitud,longitud]
+            }
+        })
+        
+        var geojson = {
+            'type': 'FeatureCollection',
+            'features': auxiliar
+        };
+
+        map.on("load", function() {
+            map.addSource('point', {
+                'type': 'geojson',
+                'data': geojson
+            });
+            map.addLayer({
+                'id': 'point',
+                'type': 'circle',
+                'source': 'point',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': '#ff1414'
+                }
+            });
+        });
+        $('canvas.mapboxgl-canvas').removeAttr('style');
+        $('canvas.mapboxgl-canvas').css('height','100%');
+        $('canvas.mapboxgl-canvas').css('width','100%');
+    }
+
 })
 </script>

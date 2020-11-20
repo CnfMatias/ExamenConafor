@@ -14,8 +14,8 @@
         {title:"Nombre", field:"nombre", sorter:"string",width:200,headerFilter:"input"},
         {title:"Calle", field:"calle", sorter:"string", align:'center',width:150,headerFilter:"input"},
         {title:"Correo", field:"email", sorter:"string",align:'center',width:120, headerFilter:"input"},
-        {title:"Telefono", field:"tel", sorter:"string",align:'center',width:180, headerFilter:"input"},
-        {title:"Celular", field:"cel", sorter:"string",align:'center',width:180, headerFilter:"input"}
+        {title:"Telefono", field:"tel", sorter:"string",align:'center',width:120, headerFilter:"input"},
+        {title:"Celular", field:"cel", sorter:"string",align:'center',width:120, headerFilter:"input"}
     ];
 
     let icons = function(cell, formatterParams){
@@ -26,10 +26,9 @@
         "<div class='m-l-10 btn btn-danger btn-sm btx_eliminar' title='Eliminar Articulo' ide='"+cell.getRow().getData().id+"'><i class='fa fa-trash'></i></div>";
     };
 
-    columnas.push({title:'Acciones', formatter:icons,align:'center'});
+    columnas.push({title:'Acciones', formatter:icons,align:'center',width:250});
     var table = new Tabulator("#tabla_clientes", {
-        layout:"fitColumns",
-        reactiveData:true,
+        layout:"fitData",
         pagination:"local", //enable local pagination.
         paginationSize:10,
         data:<?=$clientes?>,
