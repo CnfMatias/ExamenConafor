@@ -1,10 +1,86 @@
 <script>
+
+function carga_mapa(id,latitud,longitud){
+        let coordenadas = '';
+        mapboxgl.accessToken =
+        "pk.eyJ1IjoiYnVtYXBlIiwiYSI6ImNrMnNuMzlrYTEyZTAzZG13M25rYTVtbDUifQ.NMLhM4WbjCNL0W3PCMTgDA";
+        var map = new mapboxgl.Map({
+        container: id,
+        style: "mapbox://styles/mapbox/streets-v11",
+        zoom: 13,
+        center: [latitud,longitud]
+        });
+
+        let auxiliar = []
+        auxiliar.push({
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [latitud,longitud]
+            }
+        })
+        
+        var geojson = {
+            'type': 'FeatureCollection',
+            'features': auxiliar
+        };
+
+        map.on("load", function() {
+            map.addSource('point', {
+                'type': 'geojson',
+                'data': geojson
+            });
+            map.addLayer({
+                'id': 'point',
+                'type': 'circle',
+                'source': 'point',
+                'paint': {
+                    'circle-radius': 7,
+                    'circle-color': '#ff1414'
+                }
+            });
+        });
+        $('canvas.mapboxgl-canvas').removeAttr('style');
+        $('canvas.mapboxgl-canvas').css('height','100%');
+        $('canvas.mapboxgl-canvas').css('width','100%');
+    }
+
+
+    function buscar_coincidencia(data, estado, municipio, calle){
+        let ban2 = false;
+        for (let index = 0; index < data.length; index++) {
+            let region = String(data[index].region).toLowerCase();
+            let estado_ = String(estado).toLowerCase();
+            if(region == estado_){
+                let municipio_ = String(municipio).toLowerCase();
+                let locality = String(data[index].locality).toLowerCase();
+                if(locality == municipio_){
+                    let calle_ = String(data[index].street).toLowerCase();
+                    let street = String(calle).toLowerCase();
+                    if(calle_ == street){
+                        let latitud = data[index].latitude;
+                        let longitud = data[index].longitude;
+                        $('#map').html('');
+                        carga_mapa('map',longitud,latitud);
+                        ban2 = true;
+                    }
+                    
+                }
+                
+                
+            }                     
+        }
+        if(!ban2)  
+            alert("","Calle no encontrada en estado y municipio",'error');
+    }
+    
 $(document).ready(function(){
 
     $("body").on('click',"#btx_cancela_cliente",function(e){
         e.preventDefault();
         location.href = '<?=base_url()?>clientes';
     })
+
     
     //Botonazo de nuevo cliente
     $("body").on('click','#btn_nvo_cliente',function(){
@@ -115,71 +191,28 @@ $(document).ready(function(){
         //Geocoding para envio de direccion
         let calle = $('input[name=calle]').val();
         let num_ext = $('input[name=num_ext]').val();
-        let mun = $('select[name=municipio_id]').text();
-        let est = $('select[name=estado_id]').text();
+        let mun = $('select[name=municipio_id] option:selected').text();
+        let est = $('select[name=estado_id] option:selected').text();
         $.ajax({
             url: 'http://api.positionstack.com/v1/forward',
             data: {
-            access_key: 'de898282bbee9da9fac2d447c4dc88c9',
-            query: ''+calle+' '+num_ext+', '+mun+', '+est+', México',
-            country: 'MX',
-            region: 'Jalisco',
-            locality: 'Tala',
-            //limit: 1
+                access_key: 'de898282bbee9da9fac2d447c4dc88c9',
+                query: ''+calle+' '+num_ext+', '+mun+', '+est+', México',
+                country: 'MX',
+                region: "'"+est+"'",
+                limit: 20
             }
         }).done(function(data) {
-            let latitud = data.data[0].latitude;
-            let longitud = data.data[0].longitude;
-            console.log(data)
-            //funcion paa buscar regios y localidad en los resultados de un array y mostrar las cordenadas encontradas 
-            carga_mapa('map',longitud,latitud);
-        });        
+            console.log(data.data);
+            let arr=data.data;
+            buscar_coincidencia(arr,est,mun,calle);
+            
+        });       
     })
 
-    function carga_mapa(id,latitud,longitud){
-        let coordenadas = '';
-        mapboxgl.accessToken =
-        "pk.eyJ1IjoiYnVtYXBlIiwiYSI6ImNrMnNuMzlrYTEyZTAzZG13M25rYTVtbDUifQ.NMLhM4WbjCNL0W3PCMTgDA";
-        var map = new mapboxgl.Map({
-        container: id,
-        style: "mapbox://styles/mapbox/streets-v11",
-        zoom: 11,
-        center: [latitud,longitud]
-        });
+    
 
-        let auxiliar = []
-        auxiliar.push({
-            'type': 'Feature',
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [latitud,longitud]
-            }
-        })
-        
-        var geojson = {
-            'type': 'FeatureCollection',
-            'features': auxiliar
-        };
-
-        map.on("load", function() {
-            map.addSource('point', {
-                'type': 'geojson',
-                'data': geojson
-            });
-            map.addLayer({
-                'id': 'point',
-                'type': 'circle',
-                'source': 'point',
-                'paint': {
-                    'circle-radius': 7,
-                    'circle-color': '#ff1414'
-                }
-            });
-        });
-        $('canvas.mapboxgl-canvas').removeAttr('style');
-        $('canvas.mapboxgl-canvas').css('height','100%');
-        $('canvas.mapboxgl-canvas').css('width','100%');
-    }
+    
 
 })
 </script>

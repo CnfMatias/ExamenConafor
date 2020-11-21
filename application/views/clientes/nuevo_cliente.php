@@ -89,9 +89,9 @@
 </div>
 <div class="row m-t-20">
     <div class="col-md-8 offset-md-2">
-        <div id="map"></div>
+        <div id="map" style="height:400px"></div>
     </div>
-</div>           
+</div>          
 <div class="row m-t-20">
     <div class="col-md-12 text-right">
         <button type="button" id="btx_cancela_cliente" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-ban m-r-5"></i> Cancelar</button>
