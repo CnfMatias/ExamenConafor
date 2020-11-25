@@ -1,13 +1,23 @@
 <script>
+    var coincidencias = [];
 
-function carga_mapa(id,latitud,longitud){
+    function crea_options(arr,cantidad){
+        let select = '<option>'+cantidad+' Coincidencia(s)</option>';
+        for (let index = 0; index < arr.length; index++) {
+            select += '<option value="'+index+'">'+arr[index].label+'</option>'
+        }
+        $('select[name=direccion_api]').html('');
+        $('select[name=direccion_api]').html(select);
+    }
+
+    function carga_mapa(id,latitud,longitud){
         let coordenadas = '';
         mapboxgl.accessToken =
         "pk.eyJ1IjoiYnVtYXBlIiwiYSI6ImNrMnNuMzlrYTEyZTAzZG13M25rYTVtbDUifQ.NMLhM4WbjCNL0W3PCMTgDA";
         var map = new mapboxgl.Map({
         container: id,
         style: "mapbox://styles/mapbox/streets-v11",
-        zoom: 13,
+        zoom: 15,
         center: [latitud,longitud]
         });
 
@@ -45,31 +55,29 @@ function carga_mapa(id,latitud,longitud){
         $('canvas.mapboxgl-canvas').css('width','100%');
     }
 
-
     function buscar_coincidencia(data, estado, municipio, calle){
         let ban2 = false;
+        coincidencias = [];
         for (let index = 0; index < data.length; index++) {
             let region = String(data[index].region).toLowerCase();
             let estado_ = String(estado).toLowerCase();
             if(region == estado_){
                 let municipio_ = String(municipio).toLowerCase();
                 let locality = String(data[index].locality).toLowerCase();
-                if(locality == municipio_){
-                    let calle_ = String(data[index].street).toLowerCase();
-                    let street = String(calle).toLowerCase();
-                    if(calle_ == street){
-                        let latitud = data[index].latitude;
-                        let longitud = data[index].longitude;
-                        $('#map').html('');
-                        carga_mapa('map',longitud,latitud);
-                        ban2 = true;
-                    }
-                    
-                }
-                
-                
+                if(municipio_.includes(locality)){
+                    coincidencias.unshift(data[index])
+                    // let calle_ = String(data[index].street).toLowerCase();
+                    // let street = String(calle).toLowerCase();
+                    // let latitud = data[index].latitude;
+                    // let longitud = data[index].longitude;
+                    // $('#map').html('');
+                    ban2 = true;                    
+                }                
             }                     
         }
+        crea_options(coincidencias,coincidencias.length)
+        if(coincidencias.length > 0)
+            alert('','Se encontraron '+coincidencias.length+' coincidencia(s)','success');
         if(!ban2)  
             alert("","Calle no encontrada en estado y municipio",'error');
     }
@@ -81,7 +89,6 @@ $(document).ready(function(){
         location.href = '<?=base_url()?>clientes';
     })
 
-    
     //Botonazo de nuevo cliente
     $("body").on('click','#btn_nvo_cliente',function(){
         location.href = '<?=base_url()?>clientes/nuevo';
@@ -185,9 +192,7 @@ $(document).ready(function(){
         modal('Foto cliente','<div class="row"><div class="col-md-12"><img style="width:100%" src="'+src+'"></div></div>');
     })
 
-    $("body").on('click','#btn_previo_mapa',function(){
-        // limpiar mapa
-        $("#map").html('');
+    $("body").on('click','#btx_bus_dir',function(){
         //Geocoding para envio de direccion
         let calle = $('input[name=calle]').val();
         let num_ext = $('input[name=num_ext]').val();
@@ -200,14 +205,21 @@ $(document).ready(function(){
                 query: ''+calle+' '+num_ext+', '+mun+', '+est+', México',
                 country: 'MX',
                 region: "'"+est+"'",
+                //region_code: 'JAL',
                 limit: 20
             }
         }).done(function(data) {
             console.log(data.data);
-            let arr=data.data;
-            buscar_coincidencia(arr,est,mun,calle);
-            
+            buscar_coincidencia(data.data,est,mun,calle);
         });       
+    })
+
+    $('body').on('change','select[name=direccion_api]',function(){
+        let index = $(this).val();
+        $('#map').html('');
+        $('input[name=longitud]').val(coincidencias[index].longitude);
+        $('input[name=latitud]').val(coincidencias[index].latitude);
+        carga_mapa('map',coincidencias[index].longitude,coincidencias[index].latitude);
     })
 
     

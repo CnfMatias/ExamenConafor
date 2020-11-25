@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="">Nombre:</label>
-                <input type="text"  name="nombre" class="form-control mayus" autocomplete="off" placeholder="Max 150 caracteres" maxlength="200">
+                <input type="text"  name="nombre" class="form-control mayus" autocomplete="off" placeholder="Max 150 caracteres" maxlength="200" required>
             </div>
             <div class="col-md-3">
                 <label for="">Telefono:</label>
@@ -20,6 +20,26 @@
             <div class="col-md-3">
                 <label for="">Celular:</label>
                 <input type="tel"  name="cel"  class="form-control mayus" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" autocomplete="off" placeholder="33-1234-1234" maxlength="11">
+            </div>
+        </div>
+        <div class="row m-t-20">
+            <div class="col-md-4">
+                <label for="">Estado:</label>
+                <select name="estado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <?=$estados?>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="">Municipio:</label>
+                <select name="municipio_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <?=$municipios?>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="">Publicidad:</label>
+                <select name="publicidad_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <?=$publicidad?>
+                </select>
             </div>
         </div>
         <div class="row m-t-20">
@@ -34,6 +54,27 @@
             <div class="col-md-3">
                 <label for="">Numero Interior:</label>
                 <input type="text"  name="num_int" class="form-control mayus" autocomplete="off" placeholder="Max 3" maxlength="3">
+            </div>
+        </div>
+        <div class="row m-t-20">
+            <div class="col-md-12 text-right">
+            <button type="button" id="btx_bus_dir" class="btn btn-primary">Buscar dirección</button>
+            </div>
+        </div>
+        <div class="row m-t-10">
+            <div class="col-md-12">
+                <label for="">Coincidencias:</label>
+                <select name="direccion_api" class="form-control"></select>
+            </div>
+        </div>
+        <div class="row m-t-10">
+            <div class="col-md-6">
+                <label for="">Latitud:</label>
+                <input type="text" name="latitud" readonly class="form-control text-center">
+            </div>
+            <div class="col-md-6">
+                <label for="">Longitud:</label>
+                <input type="text" name="longitud" readonly class="form-control text-center">
             </div>
         </div>
         <div class="row m-t-20">
@@ -60,31 +101,6 @@
                 </div>
             </div>           
         </div>
-        <div class="row m-t-20">
-            <div class="col-md-4">
-                <label for="">Estado:</label>
-                <select name="estado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                    <?=$estados?>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="">Municipio:</label>
-                <select name="municipio_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                    <?=$municipios?>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="">Publicidad:</label>
-                <select name="publicidad_id" class="form-control mayus" autocomplete="off"  maxlength="200">
-                    <?=$publicidad?>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row m-t-20">
-    <div class="col-md-8 offset-md-2 text-right">
-    <button type="button" id="btn_previo_mapa" class="btn btn-success">Ver mapa</button>
     </div>
 </div>
 <div class="row m-t-20">
