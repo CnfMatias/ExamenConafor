@@ -5,11 +5,11 @@
 </div>
 <script>
     let columnas = [
-        {title:"Nombre", field:"nombre", sorter:"string",width:200,headerFilter:"input"},
-        {title:"Estado", field:"estado", sorter:"string", align:'center',width:150,headerFilter:"input"},
-        {title:"Correo", field:"correo", sorter:"string",align:'center',width:120, headerFilter:"input"},
-        {title:"Telefono/cel", field:"tel", sorter:"number",align:'center',width:180, headerFilter:"input"},
-        {title:"Perfil", field:"perfil", sorter:"string",align:'center',width:180, headerFilter:"input"}
+        {title:"IP", field:"ip", sorter:"string",width:200,headerFilter:"input"},
+        {title:"Agente", field:"agente", sorter:"string",align:'center',width:180, headerFilter:"input"},
+        {title:"usuario_id", field:"usuario_id", sorter:"string", align:'center',width:150,headerFilter:"input"},
+        {title:"Entrada", field:"entrada", sorter:"string",align:'center',width:120, headerFilter:"input"},
+        {title:"Salida", field:"salida", sorter:"string",align:'center',width:180, headerFilter:"input"}
 
     ];
 

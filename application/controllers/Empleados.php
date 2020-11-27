@@ -91,7 +91,8 @@ class Empleados extends CI_Controller {
 		//cargamos configuraciones
 		//var_dump($_POST);
 		$config['upload_path'] = './frontend/emps/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		//maximo tamaño
         $config['max_size'] = 1000;
 		$config['file_name'] = md5(date('Y-m-d h:i:s'));
 		//Cragamos libreria necesaria
@@ -99,6 +100,7 @@ class Empleados extends CI_Controller {
 		//verificamos la carga del archivo
 		if($this->upload->do_upload('foto_empleado')){
 			$_POST['foto_emp'] = $this->upload->data()['file_name'];
+			$_POST['monto_sueldo'] = str_replace(',','',$_POST['monto_sueldo']);
 			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->insertar($_POST,'empleados');
 			if($res['ban'])
@@ -137,6 +139,7 @@ class Empleados extends CI_Controller {
 			$_POST['foto_emp'] = $this->upload->data()['file_name'];
 			$condicion = array('id'=>$_POST['id']);
 			unset($_POST['id']);
+			$_POST['monto_sueldo'] = str_replace(',','',$_POST['monto_sueldo']);
 			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
 			if($res['ban'])
@@ -147,6 +150,7 @@ class Empleados extends CI_Controller {
 		else{
 			$condicion = array('id'=>$_POST['id']);
 			unset($_POST['id']);
+			$_POST['monto_sueldo'] = str_replace(',','',$_POST['monto_sueldo']);
 			$_POST['limite_credito'] = str_replace(',','',$_POST['limite_credito']);
 			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
 			if($res['ban'])

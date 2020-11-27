@@ -74,17 +74,29 @@ class clientes extends CI_Controller {
 		$data = $this->basicas();
 		$condicion = array('id'=>$ide);
 		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
-		$this->load->view('clientes/ver_cliente',$data);
+		$estado_id = $data['cliente']->cve_ent;
+		$data['estados_id'] = $this->crea_select('vw_estados',$estado_id);
+		$municipio_id = $data['cliente']->cve_mun;
+		$condicion = array('cve_ent' => $estado_id,'id'=>$municipio_id);
+		$data['municipios_id'] = $this->crea_select_array($this->AM->consulta($condicion,'vw_municipios'),$municipio_id);
 		$this->load->view('clientes/clientes_js');
+		$this->load->view('clientes/ver_cliente',$data);
 		$this->load->view('footer',$data);
 	}
 
 	//Funcion para cargar la vista de edicion de un cliente
 	public function editar($ide=null){
 		$data = $this->basicas();
-		$data['estados'] = $this->crea_select('c_estados');
-		$data['publicidad'] = $this->crea_select('c_publicidad');
-		//$data['municipios'] = $this->crea_select('cat_municipio');
+		$condicion = array('id'=>$ide);
+		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
+		var_dump($data['cliente']);
+		$estado_id = $data['cliente']->cve_ent;
+		$data['estados_id'] = $this->crea_select('vw_estados',$estado_id);
+		$municipio_id = $data['cliente']->cve_mun;
+		$condicion = array('cve_ent' => $estado_id,'id'=>$municipio_id);
+		$data['municipios_id'] = $this->crea_select_array($this->AM->consulta($condicion,'vw_municipios'),$municipio_id);
+		$publicidad_id = $data['cliente']->publicidad_id;
+		$data['publicidad'] = $this->crea_select('c_publicidad',$publicidad_id);
 		$condicion = array('id'=>$ide);
 		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
 		$this->load->view('clientes/editar_cliente',$data);
@@ -99,6 +111,7 @@ class clientes extends CI_Controller {
 		$_POST['folio_cliente'] = $this->AM->consulta_unica($condicion,'vw_folio_clientes')->folio;
 		$tels['tel'] = $_POST['tel'];
 		$tels['cel'] = $_POST['cel'];
+		unset($_POST['direccion_api']);
 		unset($_POST['tel']);
 		unset($_POST['cel']);
 		$_POST['usuario_registro'] = 200;
@@ -135,6 +148,7 @@ class clientes extends CI_Controller {
 			$condicion = array('id'=>$_POST['id']);
 			$tels['tel'] = $_POST['tel'];
 			$tels['cel'] = $_POST['cel'];
+			unset($_POST['direccion_api']);
 			unset($_POST['tel']);
 			unset($_POST['cel']);
 			$tels['cliente_id'] = $_POST['id'];

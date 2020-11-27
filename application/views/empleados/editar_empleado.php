@@ -30,11 +30,11 @@
         <div class="row m-t-20">
             <div class="col-md-6">
                 <label for="">Nombre:</label>
-                <input type="text"  name="nombre" class="form-control mayus" autocomplete="off" maxlength="200">
+                <input type="text"  name="nombre" class="form-control" autocomplete="off" maxlength="200">
             </div>
             <div class="col-md-6">
                 <label for="">Dirección:</label>
-                <input type="text" class="form-control mayus"  name="direccion" autocomplete="off" maxlength="200">
+                <input type="text" class="form-control"  name="direccion" autocomplete="off" maxlength="200">
             </div>
         </div>
         <div class="row m-t-20">
@@ -54,30 +54,43 @@
         <div class="row m-t-20">
             <div class="col-md-3">
                 <label for="">Tipo de puesto:</label>
-                    <select name="perfil_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <select name="perfil_id" class="form-control" autocomplete="off"  maxlength="200">
                         <?=$perfiles?>
                     </select>
             </div>
             <div class="col-md-3">
                     <label for="">Tipo de Sueldo:</label>
-                    <select name="tipo_sueldo_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <select name="tipo_sueldo_id" class="form-control" autocomplete="off"  maxlength="200">
                         <?=$sueldos?>
                     </select>
             </div>
-            <div class="col-md-4">
+        <div id="v_sueldo" style="display:none;">
+            <div class="col-md-12">
             <label for="">Sueldo:</label>
             <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
             </div>
-            <input type="text"  name="monto_sueldo"  class="form-control mayus"  placeholder="0.00" autocomplete="off"  maxlength="7">
+            <input type="text"  name="monto_sueldo"  class="form-control"  placeholder="0.00"  maxlength="8">
             </div>
             </div>
+        </div>
+        <div id="v_comision" style="display:none;">
+        <div class="col-md-12">
+            <label for="">Comisión:</label>
+            <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">%</span>
+            </div>
+            <input type="text"  name="comision"  class="form-control"  placeholder="0" autocomplete="off"  maxlength="7">
+            </div>
+            </div>
+        </div>
         </div>
         <div class="row m-t-10">
             <div class="col-md-5">
                     <label for="">Estado:</label>
-                    <select name="estado_id" class="form-control mayus" autocomplete="off"  maxlength="200">
+                    <select name="estado_id" class="form-control" autocomplete="off"  maxlength="200">
                         <?=$estados?>
                     </select>
             </div>
@@ -130,6 +143,18 @@
             if($(this).attr('name') == 'perfil_id' && $(this).val() == 4)
                  $("#v_tecnico").show();
         })
+        $('select').each(function(){
+            $(this).val(valores[$(this).attr('name')]);
+            //alert($(this).attr('name'))
+            if($(this).attr('name') == 'tipo_sueldo_id' && $(this).val() == 1)
+                 $("#v_sueldo").show();
+        })
+         $('select').each(function(){
+            $(this).val(valores[$(this).attr('name')]);
+            //alert($(this).attr('name'))
+            if($(this).attr('name') == 'tipo_sueldo_id' && $(this).val() == 2)
+                 $("#v_comision").show();
+        })
         $('textarea').each(function(){
             $(this).val(valores[$(this).attr('name')])
         })
@@ -143,6 +168,24 @@
                 $("#v_tecnico").show();
             else
                 $("#v_tecnico").hide();
+        })
+
+
+        $('select[name=tipo_sueldo_id]').change(function(){
+            let id = $(this).val();
+            if(id == 1)
+                $("#v_sueldo").show();
+            else
+                $("#v_sueldo").hide();
+        })
+
+
+        $('select[name=tipo_sueldo_id]').change(function(){
+            let id = $(this).val();
+            if(id == 2)
+                $("#v_comision").show();
+            else
+                $("#v_comision").hide();
         })
     })
 </script>

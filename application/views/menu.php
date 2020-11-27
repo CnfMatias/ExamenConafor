@@ -46,20 +46,6 @@ switch (true) {
         $descri_m = 'Módulo para la configuración del Sistema Olimpoos';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'presupuesto') !== false:
-        $presupuesto_m = 'active';
-        $fa_icon = 'fa fa-archive';
-        $titulo_m = 'Administración / presupuesto';
-        $descri_m = 'Presupuesto de lavadoras';
-        $m_superior_admin = 'active open';
-        break;
-    case strpos($url, 'perfiles') !== false:
-        $perfiles_m = 'active';
-        $fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Perfiles';
-        $descri_m = 'Módulo para la administración de perfiles de usuarios';
-        $m_superior_admin = 'active open';
-        break;
     case strpos($url, 'empleados') !== false:
         $empleados_m = 'active';
         $fa_icon = 'fal fa-cogs';
@@ -67,20 +53,6 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de empleados';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'tecnicos') !== false:
-		$tecnicos_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Técnicos';
-        $descri_m = 'Módulo para la creación y administración de técnicos';
-        $m_superior_admin = 'active open';
-    break;
-    case strpos($url, 'polizas') !== false:
-		$polizas_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Polizas';
-        $descri_m = 'Módulo para la creación y administración de polizas';
-        $m_superior_admin = 'active open';
-    break;
     case strpos($url, 'clientes') !== false:
 		$clientes_m = 'active';
 		$fa_icon = 'fal fa-cogs';
@@ -95,21 +67,14 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de usuarios';
         $m_superior_admin = 'active open';
     break;
-    /* case strpos($url, 'acionnes') !== false:
+    case strpos($url, 'accesos') !== false:
 		$accesos_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / accesos';
-        $descri_m = 'Módulo para la creación y administración de accesos';
-        $m_superior_admin = 'active open';
-    break; */
-    case strpos($url, 'reloj') !== false:
-		$checador_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración - Reloj Checador';
-        $descri_m = 'Módulo para la revisión del Reloj Checador';
+        $titulo_m = 'Administración / Accesos';
+        $descri_m = 'Módulo para la visualización de accesos';
         $m_superior_admin = 'active open';
     break;
-    /////////////// Produccion //////////////
+    /////////////// Servicios //////////////
     case strpos($url, 'rollos') !== false:
 		$prollos_m = 'active';
 		$fa_icon = 'fal fa-puzzle-piece';
@@ -195,21 +160,11 @@ switch (true) {
                     <span class="nav-link-text">Empleados</span>
                 </a>
             </li>
-            <li class="'.$usuarios_m.'">
-                <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
-                    <span class="nav-link-text">Usuarios</span>
-                </a>
-            </li>
             <li class="'.$clientes_m.'">
                 <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
                     <span class="nav-link-text">Clientes</span>
                 </a>
             </li> 
-            <li class="'.$polizas_m.'">
-                <a href="'.base_url().'polizas" title="Polizas" data-filter-tags="polizas">
-                    <span class="nav-link-text">Polizas</span>
-                </a>
-            </li>
             <li class="'.$accesos_m.'">
                 <a href="'.base_url().'accesos" title="Accesos" data-filter-tags="Accesos">
                     <span class="nav-link-text">Accesos</span>

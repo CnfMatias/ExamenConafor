@@ -26,12 +26,22 @@
         "<div class='m-l-10 btn btn-danger btn-sm btx_eliminar' title='Eliminar Articulo' ide='"+cell.getRow().getData().id+"'><i class='fa fa-trash'></i></div>";
     };
 
-    columnas.push({title:'Acciones', formatter:icons,align:'center',width:250});
+    /* columnas.push({title:'Acciones', formatter:icons,align:'center',width:250});
     var table = new Tabulator("#tabla_clientes", {
         layout:"fitData",
         pagination:"local", //enable local pagination.
         paginationSize:10,
         data:<?=$clientes?>,
         columns:columnas
-    });
+    }); */
+
+    columnas.push({title:'Acciones', formatter:icons,align:'center'});
+    var table = new Tabulator("#tabla_clientes", {
+        layout:"fitColumns",
+        reactiveData:true,
+        pagination:"local", //enable local pagination.
+        paginationSize:10,
+        data:<?=$clientes?>,
+        columns:columnas
+    }); 
 </script>

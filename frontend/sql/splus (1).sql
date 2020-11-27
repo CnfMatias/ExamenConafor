@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 16-11-2020 a las 20:08:49
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.2.31
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-11-2020 a las 19:28:31
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `splus`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `accesos`
+--
+
+CREATE TABLE `accesos` (
+  `id` int(11) NOT NULL,
+  `ip` varchar(16) DEFAULT NULL,
+  `agente` varchar(255) DEFAULT NULL,
+  `usuario_id` smallint(255) DEFAULT NULL,
+  `entrada` datetime DEFAULT NULL,
+  `salida` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -44,23 +59,20 @@ CREATE TABLE `clientes` (
   `activo` char(1) DEFAULT '1',
   `estatus_general_id` int(11) NOT NULL,
   `usuario_registro` smallint(4) DEFAULT NULL,
-  `fecha_registro` datetime DEFAULT NULL
+  `fecha_registro` datetime DEFAULT NULL,
+  `latitud` varchar(15) DEFAULT NULL,
+  `longitud` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `folio_cliente`, `nombre`, `calle`, `num_ext`, `num_int`, `entre_calles`, `colonia`, `codigo_postal`, `email`, `estado_id`, `municipio_id`, `publicidad_id`, `activo`, `estatus_general_id`, `usuario_registro`, `fecha_registro`) VALUES
-(1, NULL, 'MANUEL', 'condesa', '1989', '340', 'mANZA Y DURAZNO', '0', 44900, '', '14', NULL, NULL, '1', 2, NULL, NULL),
-(14, NULL, 'MANUEL', 'FRESNO', '1989', '340', 'mANZA', '0', 44900, '', '01', NULL, NULL, '1', 2, NULL, NULL),
-(15, NULL, 'Jose', 'FRESNO', '1989', '340', 'mANZA Y DURAZNO', '0', 44900, '', '17', NULL, NULL, '1', 2, NULL, NULL),
-(19, 'JAL202000003', 'manuel', '', '', '', '', '', 0, '', '14', '0', 0, '1', 0, 200, '2020-11-16 12:30:22'),
-(20, NULL, 'matias', '', '', '', '', '', 0, '', '11', NULL, 0, '1', 0, 200, '2020-11-16 12:41:06'),
-(21, 'GTO202000002', 'matias', '', '', '', '', '', 0, '', '11', NULL, 0, '1', 0, 200, '2020-11-16 12:44:03'),
-(22, 'AGS202000002', 'raul', '', '', '', '', '', 0, '', '01', NULL, 0, '1', 0, 200, '2020-11-16 12:45:05'),
-(23, 'JAL202000003', 'bruno', '', '', '', '', '', 0, '', '14', '098', 0, '1', 0, 200, '2020-11-16 13:03:05'),
-(24, 'AGS202000003', 'Amria', '', '', '', '', '', 0, '', '01', '010', 0, '1', 0, 200, '2020-11-16 13:03:51');
+INSERT INTO `clientes` (`id`, `folio_cliente`, `nombre`, `calle`, `num_ext`, `num_int`, `entre_calles`, `colonia`, `codigo_postal`, `email`, `estado_id`, `municipio_id`, `publicidad_id`, `activo`, `estatus_general_id`, `usuario_registro`, `fecha_registro`, `latitud`, `longitud`) VALUES
+(1, NULL, 'Manuel Perez Robledo', 'isla ustica', '3104', '', 'Calle isla zanzibar', 'Jardines del Sur', 44987, 'manu_94@gmail.com', '14', '039', 3, '1', 2, NULL, NULL, '20.631358', '-103.392168'),
+(14, NULL, 'Víctor Loretto Rodriguez', 'Josefa Ortiz de Domínguez', '268', '326', 'Calle Jiménez', 'Centro de Guadalupe', 67100, 'vic_lort@gmail.com', '19', '026', 1, '1', 2, NULL, NULL, '25.678488', '-100.260854'),
+(34, 'JAL202000002', 'Carlos Tapia Lopez', 'Fresno', '1989', '', 'Calle Naranjo y Calle Nogal', 'El Fresno', 44900, 'carlost_lpz@gmail.com', '', '', 3, '1', 0, 200, '2020-11-26 17:17:44', '20.657406', '-103.370604'),
+(36, 'JAL202000003', 'Rosario Robles Lopez', 'San Juan de la Cruz', '540A', '', 'Santo Domingo de Guzmán y Santa Teresa de Jesús', 'Camino Real', 45040, 'rosarito_32@hotmail.com', '14', '120', 2, '1', 0, 200, '2020-11-27 10:05:05', '20.669577', '-103.413028');
 
 -- --------------------------------------------------------
 
@@ -71,7 +83,7 @@ INSERT INTO `clientes` (`id`, `folio_cliente`, `nombre`, `calle`, `num_ext`, `nu
 CREATE TABLE `c_equipos` (
   `id` smallint(11) NOT NULL,
   `nombre` varchar(150) NOT NULL,
-  `activo` char(1) NOT NULL
+  `activo` char(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
@@ -79,7 +91,9 @@ CREATE TABLE `c_equipos` (
 --
 
 INSERT INTO `c_equipos` (`id`, `nombre`, `activo`) VALUES
-(1, 'new', '1');
+(1, 'Lavadora', '1'),
+(2, 'Secadora', '0'),
+(3, 'Regulador', '1');
 
 -- --------------------------------------------------------
 
@@ -99,38 +113,38 @@ CREATE TABLE `c_estados` (
 --
 
 INSERT INTO `c_estados` (`id`, `cve_ent`, `acro`, `nombre`) VALUES
-(1, '01', 'AGS', 'AGUASCALIENTES'),
-(2, '02', 'BJ', 'BAJA CALIFORNIA'),
-(3, '03', 'BJS', 'BAJA CALIFORNIA SUR'),
+(1, '01', 'AGU', 'AGUASCALIENTES'),
+(2, '02', 'BCN', 'BAJA CALIFORNIA'),
+(3, '03', 'BCN', 'BAJA CALIFORNIA SUR'),
 (4, '04', 'CAM', 'CAMPECHE'),
-(5, '05', NULL, 'COAHUILA DE ZARAGOZA'),
+(5, '05', 'COA', 'COAHUILA DE ZARAGOZA'),
 (6, '06', 'COL', 'COLIMA'),
 (7, '07', 'CHP', 'CHIAPAS'),
-(8, '08', 'CHI', 'CHIHUAHUA'),
-(9, '09', NULL, 'CIUDAD DE MÉXICO'),
-(10, '10', 'DGO', 'DURANGO'),
-(11, '11', 'GTO', 'GUANAJUATO'),
-(12, '12', NULL, 'GUERRERO'),
-(13, '13', 'HDO', 'HIDALGO'),
+(8, '08', 'CHH', 'CHIHUAHUA'),
+(9, '09', 'MEX', 'CIUDAD DE MÉXICO'),
+(10, '10', 'DUR', 'DURANGO'),
+(11, '11', 'GUA', 'GUANAJUATO'),
+(12, '12', 'GRO', 'GUERRERO'),
+(13, '13', 'HID', 'HIDALGO'),
 (14, '14', 'JAL', 'JALISCO'),
-(15, '15', 'MEX', 'MÉXICO'),
-(16, '16', NULL, 'MICHOACÁN DE OCAMPO'),
-(17, '17', 'MOR', 'MORELOS'),
+(15, '15', 'DF', 'MÉXICO'),
+(16, '16', 'MIC', 'MICHOACÁN DE OCAMPO'),
+(17, '17', 'MEX', 'MORELOS'),
 (18, '18', 'NAY', 'NAYARIT'),
-(19, '19', NULL, 'NUEVO LEÓN'),
+(19, '19', 'NLE', 'NUEVO LEÓN'),
 (20, '20', 'OAX', 'OAXACA'),
 (21, '21', 'PUE', 'PUEBLA'),
-(22, '22', NULL, 'QUERÉTARO'),
-(23, '23', NULL, 'QUINTANA ROO'),
-(24, '24', NULL, 'SAN LUIS POTOSÍ'),
-(25, '25', NULL, 'SINALOA'),
-(26, '26', NULL, 'SONORA'),
-(27, '27', NULL, 'TABASCO'),
-(28, '28', NULL, 'TAMAULIPAS'),
-(29, '29', NULL, 'TLAXCALA'),
-(30, '30', NULL, 'VERACRUZ DE IGNACIO DE LA LLAVE'),
-(31, '31', NULL, 'YUCATÁN'),
-(32, '32', NULL, 'ZACATECAS');
+(22, '22', 'QUE', 'QUERÉTARO'),
+(23, '23', 'ROO', 'QUINTANA ROO'),
+(24, '24', 'SLP', 'SAN LUIS POTOSÍ'),
+(25, '25', 'SIN', 'SINALOA'),
+(26, '26', 'SON', 'SONORA'),
+(27, '27', 'TAB', 'TABASCO'),
+(28, '28', 'TAM', 'TAMAULIPAS'),
+(29, '29', 'TLA', 'TLAXCALA'),
+(30, '30', 'VER', 'VERACRUZ DE IGNACIO DE LA LLAVE'),
+(31, '31', 'YUC', 'YUCATÁN'),
+(32, '32', 'ZAC', 'ZACATECAS');
 
 -- --------------------------------------------------------
 
@@ -165,7 +179,7 @@ CREATE TABLE `c_horarios` (
 --
 
 INSERT INTO `c_horarios` (`id`, `nombre`, `dia_inicio`, `dia_final`, `hora_inicio`, `hora_final`, `activo`) VALUES
-(1, 'Ejemplo', '1', '7', '14:18:40', '19:19:00', '1');
+(1, 'Ricardo', '1', '7', '14:18:40', '19:19:00', '1');
 
 -- --------------------------------------------------------
 
@@ -176,7 +190,7 @@ INSERT INTO `c_horarios` (`id`, `nombre`, `dia_inicio`, `dia_final`, `hora_inici
 CREATE TABLE `c_marca` (
   `id` smallint(11) NOT NULL,
   `nombre` varchar(200) NOT NULL,
-  `activo` char(1) NOT NULL
+  `activo` char(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
@@ -184,7 +198,9 @@ CREATE TABLE `c_marca` (
 --
 
 INSERT INTO `c_marca` (`id`, `nombre`, `activo`) VALUES
-(1, 'new', '1');
+(1, 'Mabe', '1'),
+(6, 'Samsung', '1'),
+(7, 'Whirpool', '1');
 
 -- --------------------------------------------------------
 
@@ -2714,8 +2730,8 @@ CREATE TABLE `c_publicidad` (
 
 INSERT INTO `c_publicidad` (`id`, `nombre`, `activo`) VALUES
 (1, 'Radio', '1'),
-(2, 'Iman', '1'),
-(3, 'Internet', '1');
+(2, 'Red Social', '1'),
+(3, 'Referido', '1');
 
 -- --------------------------------------------------------
 
@@ -2747,32 +2763,31 @@ CREATE TABLE `empleados` (
   `id` smallint(6) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `direccion` varchar(200) NOT NULL,
-  `tel` varchar(11) NOT NULL,
+  `tel` varchar(14) NOT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `foto_emp` varchar(50) NOT NULL,
   `perfil_id` int(11) NOT NULL,
   `tipo_sueldo_id` int(11) NOT NULL,
-  `monto_sueldo` float(7,2) NOT NULL,
+  `monto_sueldo` float(8,2) DEFAULT NULL,
   `estatus_general_id` int(11) NOT NULL,
   `usuario_registro_id` int(11) NOT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   `correo` varchar(200) NOT NULL,
   `estado_id` smallint(6) NOT NULL,
   `activo` char(1) DEFAULT '1',
-  `limite_credito` float(7,2) DEFAULT NULL,
-  `max_servicios` smallint(2) DEFAULT NULL
+  `limite_credito` float(8,2) DEFAULT NULL,
+  `max_servicios` smallint(2) DEFAULT NULL,
+  `comision` int(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id`, `nombre`, `direccion`, `tel`, `fecha_nacimiento`, `foto_emp`, `perfil_id`, `tipo_sueldo_id`, `monto_sueldo`, `estatus_general_id`, `usuario_registro_id`, `fecha_registro`, `correo`, `estado_id`, `activo`, `limite_credito`, `max_servicios`) VALUES
-(1, 'Matias', 'gdl', '38-4103-508', '2000-01-04', 'b562fa8651314c23802c37fbb1c3ac88.jpg', 1, 2, 1200.00, 3, 0, '0000-00-00 00:00:00', 'rikmatt23@gmail.com', 2, '1', NULL, NULL),
-(5, 'Erick', 'gdl', '', '1993-04-23', '', 1, 0, 100.00, 3, 0, '2020-10-30 00:00:00', 'rikmatt23@gmail.com', 0, '1', NULL, NULL),
-(7, 'Jose', 'Guadalajara', '', '0000-00-00', '', 1, 1, 0.00, 3, 0, NULL, '', 1, '1', NULL, NULL),
-(8, 'Raul', 'GDL', '', '0000-00-00', '80592b9914447a686b0b69f87b0972f2.jpeg', 4, 1, 500.00, 0, 0, NULL, 'rikmatt23@gmail.com', 7, '1', 5000.00, 15),
-(9, 'monica', '', '', '0000-00-00', '77d2f18ac6549e8a9d3c28d31951eb52.jpeg', 4, 0, 0.00, 0, 0, NULL, '', 0, '1', 7000.00, 10);
+INSERT INTO `empleados` (`id`, `nombre`, `direccion`, `tel`, `fecha_nacimiento`, `foto_emp`, `perfil_id`, `tipo_sueldo_id`, `monto_sueldo`, `estatus_general_id`, `usuario_registro_id`, `fecha_registro`, `correo`, `estado_id`, `activo`, `limite_credito`, `max_servicios`, `comision`) VALUES
+(10, 'MAria Lopez RObledo', 'el sauz #456 tlaquepaque', '33-1234-5677', '1989-03-09', '5c69542604b40e7281784dcea3412b8d.jpg', 2, 1, 8100.00, 0, 0, NULL, 'maria_plus@gmail.com', 14, '1', 123456.78, 0, 15),
+(12, 'Antonio Misael Aguilar', 'Cruz del sur #345 guadalajara', '33-3475-8883', '1994-07-08', 'e993d810f8fbb30a84b29c37201cbe6a.jpg', 4, 2, 1200.00, 0, 0, NULL, 'misa_dina@gmail.com', 14, '1', 4000.00, 2, 60),
+(13, 'Ricardo Matias Alvarado Montemayor', '5 de mayo #31 Tala', '33-1051-2797', '1993-04-23', 'aa65475a746fa5762d7312a9d5db2599.jpg', 1, 1, 15000.00, 0, 0, NULL, 'rikmatt23@gmail.com', 14, '1', 0.00, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2783,7 +2798,7 @@ INSERT INTO `empleados` (`id`, `nombre`, `direccion`, `tel`, `fecha_nacimiento`,
 CREATE TABLE `polizas` (
   `id` int(11) NOT NULL,
   `cliente_id` int(200) NOT NULL,
-  `costo` float NOT NULL,
+  `costo` float(7,2) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
   `empleado_id` int(200) DEFAULT NULL,
@@ -2795,8 +2810,8 @@ CREATE TABLE `polizas` (
 --
 
 INSERT INTO `polizas` (`id`, `cliente_id`, `costo`, `fecha_inicio`, `fecha_fin`, `empleado_id`, `estatus_general_id`) VALUES
-(1, 15, 800, '2020-11-01', '2020-11-04', 1, 3),
-(2, 1, 0, '0000-00-00', '0000-00-00', 1, 2);
+(1, 15, 800.00, '2020-11-01', '2020-11-04', 1, 3),
+(2, 1, 0.00, '0000-00-00', '0000-00-00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -2807,8 +2822,8 @@ INSERT INTO `polizas` (`id`, `cliente_id`, `costo`, `fecha_inicio`, `fecha_fin`,
 CREATE TABLE `r_cliente_tel` (
   `id` smallint(11) NOT NULL,
   `cliente_id` smallint(11) DEFAULT NULL,
-  `tel` varchar(11) DEFAULT NULL,
-  `cel` varchar(11) DEFAULT NULL,
+  `tel` varchar(14) DEFAULT NULL,
+  `cel` varchar(14) DEFAULT NULL,
   `usuario_registro` smallint(11) DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
@@ -2828,7 +2843,28 @@ INSERT INTO `r_cliente_tel` (`id`, `cliente_id`, `tel`, `cel`, `usuario_registro
 (8, 21, '', '', 200, '2020-11-16 12:44:03'),
 (9, 22, '', '', 200, '2020-11-16 12:45:05'),
 (10, 23, '', '', 200, '2020-11-16 13:03:05'),
-(11, 24, '', '', 200, '2020-11-16 13:03:51');
+(11, 24, '', '', 200, '2020-11-16 13:03:51'),
+(12, 25, '', '33-3445-555', 200, '2020-11-18 16:53:00'),
+(13, 26, '', '33-3445-555', 200, '2020-11-18 16:53:09'),
+(14, 27, '33-3334-444', '', 200, '2020-11-18 16:57:23'),
+(15, 28, '33-3445-668', '44-4222-345', 200, '2020-11-18 17:35:17'),
+(16, 29, '55-5443-333', '44-4553-333', 200, '2020-11-18 17:37:15'),
+(17, 30, '33-3334-444', '77-7444-433', 200, '2020-11-18 17:37:30'),
+(18, 31, '33-3105-120', '33-3299-394', 200, '2020-11-18 22:31:18'),
+(19, 32, '33-9949-494', '33-3455-555', 200, '2020-11-18 22:31:35'),
+(20, 1, '44-3455-566', '22-3345-555', 200, '2020-11-18 22:49:00'),
+(21, 33, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 17:17:29'),
+(22, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 17:17:44'),
+(23, 35, '', '', 200, '2020-11-26 22:11:37'),
+(24, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 22:51:01'),
+(25, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 22:51:02'),
+(26, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 22:51:03'),
+(27, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-26 22:52:47'),
+(28, 1, '', '33-1051-7898', 200, '2020-11-27 09:58:28'),
+(29, 36, '33-1094-8433', '', 200, '2020-11-27 10:05:05'),
+(30, 14, '33-1084-5977', '33-1084-7544', 200, '2020-11-27 10:17:21'),
+(31, 34, '33-3445-5666', '33-1445-8588', 200, '2020-11-27 10:19:34'),
+(32, 34, '33-3445-5745', '33-1445-8588', 200, '2020-11-27 10:19:48');
 
 -- --------------------------------------------------------
 
@@ -2935,18 +2971,43 @@ INSERT INTO `tecnicos` (`id`, `empleado_id`, `limite_credito`, `estatus_general_
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(200) NOT NULL,
-  `empleado_id` int(200) NOT NULL,
-  `usuario` varchar(200) NOT NULL,
-  `contraseña` varchar(200) NOT NULL,
-  `hora_entrada` int(100) NOT NULL,
-  `hora_salida` int(200) NOT NULL,
-  `estatus_general_id` int(200) NOT NULL
+  `id` smallint(5) NOT NULL,
+  `empleado_id` smallint(5) NOT NULL,
+  `usuario` varchar(150) NOT NULL,
+  `contraseña` varchar(150) NOT NULL,
+  `estatus_general_id` smallint(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
-
+--
+-- Estructura Stand-in para la vista `vw_clientes`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vw_clientes` (
+`id` smallint(11)
+,`folio_cliente` varchar(13)
+,`nombre` varchar(200)
+,`calle` varchar(200)
+,`num_ext` varchar(100)
+,`num_int` varchar(100)
+,`entre_calles` varchar(200)
+,`colonia` varchar(200)
+,`cve_ent` varchar(2)
+,`estado` varchar(50)
+,`cve_mun` varchar(3)
+,`municipio` varchar(100)
+,`codigo_postal` int(11)
+,`email` varchar(200)
+,`activo` char(1)
+,`estatus` varchar(200)
+,`publicidad_id` smallint(2)
+,`publicidad` varchar(200)
+,`tel` varchar(14)
+,`cel` varchar(14)
+,`latitud` varchar(15)
+,`longitud` varchar(15)
+);
 
 -- --------------------------------------------------------
 
@@ -2958,17 +3019,18 @@ CREATE TABLE `vw_empleados` (
 `id` smallint(6)
 ,`nombre` varchar(200)
 ,`direccion` varchar(200)
-,`tel` varchar(11)
+,`tel` varchar(14)
 ,`fecha_nacimiento` date
 ,`foto_emp` varchar(50)
 ,`perfil` varchar(200)
 ,`tipo_sueldo` varchar(200)
-,`monto_sueldo` float(7,2)
+,`monto_sueldo` float(8,2)
+,`comision` int(7)
 ,`estatus` varchar(200)
 ,`correo` varchar(200)
 ,`estado` varchar(50)
 ,`activo` char(1)
-,`limite_credito` float(7,2)
+,`limite_credito` float(8,2)
 ,`max_servicios` smallint(2)
 );
 
@@ -2993,6 +3055,7 @@ CREATE TABLE `vw_equipos` (
 CREATE TABLE `vw_estados` (
 `id` varchar(2)
 ,`nombre` varchar(50)
+,`code_api` varchar(3)
 );
 
 -- --------------------------------------------------------
@@ -3067,7 +3130,7 @@ CREATE TABLE `vw_perfiles` (
 CREATE TABLE `vw_polizas` (
 `id` int(11)
 ,`cliente_nom` varchar(200)
-,`costo` float
+,`costo` float(7,2)
 ,`fecha_inicio` date
 ,`fecha_fin` date
 ,`emp_nom` varchar(200)
@@ -3108,12 +3171,12 @@ CREATE TABLE `vw_tecnicos` (
 `id` smallint(6)
 ,`nombre` varchar(200)
 ,`direccion` varchar(200)
-,`tel` varchar(11)
+,`tel` varchar(14)
 ,`fecha_nacimiento` date
 ,`foto_emp` varchar(50)
 ,`perfil` varchar(200)
 ,`tipo_sueldo` varchar(200)
-,`monto_sueldo` float(7,2)
+,`monto_sueldo` float(8,2)
 ,`estatus` varchar(200)
 ,`correo` varchar(200)
 ,`estado` varchar(50)
@@ -3129,24 +3192,6 @@ CREATE TABLE `vw_tecnicos` (
 -- (Véase abajo para la vista actual)
 --
 CREATE TABLE `vw_usuarios` (
-`id` smallint(6)
-,`nombre` varchar(200)
-,`direccion` varchar(200)
-,`tel` varchar(11)
-,`fecha_nacimiento` date
-,`foto_emp` varchar(50)
-,`perfil` varchar(200)
-,`tipo_sueldo` varchar(200)
-,`monto_sueldo` float(7,2)
-,`estatus` varchar(200)
-,`correo` varchar(200)
-,`estado` varchar(50)
-,`usuario_id` int(200)
-,`usuario` varchar(200)
-,`contraseña` varchar(200)
-,`hora_entrada` int(100)
-,`hora_salida` int(200)
-,`estatus_general_id` int(200)
 );
 
 -- --------------------------------------------------------
@@ -3154,20 +3199,27 @@ CREATE TABLE `vw_usuarios` (
 --
 -- Estructura para la vista `vw_clientes`
 --
+DROP TABLE IF EXISTS `vw_clientes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_clientes`  AS SELECT `cln`.`id` AS `id`, `cln`.`folio_cliente` AS `folio_cliente`, `cln`.`nombre` AS `nombre`, `cln`.`calle` AS `calle`, `cln`.`num_ext` AS `num_ext`, `cln`.`num_int` AS `num_int`, `cln`.`entre_calles` AS `entre_calles`, `cln`.`colonia` AS `colonia`, `cestados`.`cve_ent` AS `cve_ent`, `cestados`.`nombre` AS `estado`, `cmunicipio`.`cve_mun` AS `cve_mun`, `cmunicipio`.`nombre` AS `municipio`, `cln`.`codigo_postal` AS `codigo_postal`, `cln`.`email` AS `email`, `cln`.`activo` AS `activo`, `cestatus`.`nombre` AS `estatus`, `cpublicidad`.`id` AS `publicidad_id`, `cpublicidad`.`nombre` AS `publicidad`, `rct`.`tel` AS `tel`, `rct`.`cel` AS `cel`, `cln`.`latitud` AS `latitud`, `cln`.`longitud` AS `longitud` FROM (((((`clientes` `cln` left join `c_publicidad` `cpublicidad` on(`cln`.`publicidad_id` = `cpublicidad`.`id`)) left join `c_estados` `cestados` on(`cln`.`estado_id` = `cestados`.`id`)) left join `c_municipios` `cmunicipio` on(`cmunicipio`.`cve_ent` = `cln`.`estado_id` and `cmunicipio`.`cve_mun` = `cln`.`municipio_id`)) left join `c_estatus_general` `cestatus` on(`cln`.`estatus_general_id` = `cestatus`.`id`)) left join `r_cliente_tel` `rct` on(`rct`.`id` in (select max(`r_cliente_tel`.`id`) AS `id` from `r_cliente_tel` where `r_cliente_tel`.`cliente_id` = `cln`.`id`))) ORDER BY `cln`.`id` ASC ;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vw_empleados`
 --
+DROP TABLE IF EXISTS `vw_empleados`;
 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_empleados`  AS SELECT `emp`.`id` AS `id`, `emp`.`nombre` AS `nombre`, `emp`.`direccion` AS `direccion`, `emp`.`tel` AS `tel`, `emp`.`fecha_nacimiento` AS `fecha_nacimiento`, `emp`.`foto_emp` AS `foto_emp`, `cper`.`nombre` AS `perfil`, `csuel`.`nombre` AS `tipo_sueldo`, `emp`.`monto_sueldo` AS `monto_sueldo`, `emp`.`comision` AS `comision`, `cestatus`.`nombre` AS `estatus`, `emp`.`correo` AS `correo`, `cestados`.`nombre` AS `estado`, `emp`.`activo` AS `activo`, `emp`.`limite_credito` AS `limite_credito`, `emp`.`max_servicios` AS `max_servicios` FROM ((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) ORDER BY `emp`.`id` DESC ;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura para la vista `vw_equipos`
 --
+DROP TABLE IF EXISTS `vw_equipos`;
 
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_equipos`  AS SELECT `c_equipos`.`id` AS `id`, `c_equipos`.`nombre` AS `nombre`, CASE WHEN `c_equipos`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_equipos` ;
 
 -- --------------------------------------------------------
 
@@ -3176,7 +3228,7 @@ CREATE TABLE `vw_usuarios` (
 --
 DROP TABLE IF EXISTS `vw_estados`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estados`  AS  select `est`.`cve_ent` AS `id`,`est`.`nombre` AS `nombre` from `c_estados` `est` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_estados`  AS SELECT `est`.`cve_ent` AS `id`, `est`.`nombre` AS `nombre`, `est`.`acro` AS `code_api` FROM `c_estados` AS `est` ;
 
 -- --------------------------------------------------------
 
@@ -3185,7 +3237,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_folio_clientes`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_folio_clientes`  AS  select `cli`.`estado_id` AS `estado_id`,`est`.`acro` AS `acro`,count(0) AS `cantidad`,concat(`est`.`acro`,year(current_timestamp()),lpad(count(0) + 1,5,'0')) AS `folio` from (`clientes` `cli` left join `c_estados` `est` on(`est`.`cve_ent` = `cli`.`estado_id`)) group by `cli`.`estado_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_folio_clientes`  AS SELECT `cli`.`estado_id` AS `estado_id`, `est`.`acro` AS `acro`, count(0) AS `cantidad`, concat(`est`.`acro`,year(current_timestamp()),lpad(count(0) + 1,5,'0')) AS `folio` FROM (`clientes` `cli` left join `c_estados` `est` on(`est`.`cve_ent` = `cli`.`estado_id`)) GROUP BY `cli`.`estado_id` ;
 
 -- --------------------------------------------------------
 
@@ -3194,7 +3246,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_horarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_horarios`  AS  select `c_horarios`.`id` AS `id`,`c_horarios`.`nombre` AS `nombre`,case when `c_horarios`.`dia_inicio` = 0 then 'Domingo' when `c_horarios`.`dia_inicio` = 1 then 'Lunes' when `c_horarios`.`dia_inicio` = 2 then 'Martes' when `c_horarios`.`dia_inicio` = 3 then 'Miercoles' when `c_horarios`.`dia_inicio` = 4 then 'Jueves' when `c_horarios`.`dia_inicio` = 5 then 'Viernes' when `c_horarios`.`dia_inicio` = 6 then 'Sabado' end AS `dia_inicio`,case when `c_horarios`.`dia_final` = 0 then 'Domingo' when `c_horarios`.`dia_final` = 1 then 'Lunes' when `c_horarios`.`dia_final` = 2 then 'Martes' when `c_horarios`.`dia_final` = 3 then 'Miercoles' when `c_horarios`.`dia_final` = 4 then 'Jueves' when `c_horarios`.`dia_final` = 5 then 'Viernes' when `c_horarios`.`dia_final` = 6 then 'Sabado' end AS `dia_final`,case when `c_horarios`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_horarios` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_horarios`  AS SELECT `c_horarios`.`id` AS `id`, `c_horarios`.`nombre` AS `nombre`, CASE WHEN `c_horarios`.`dia_inicio` = 0 THEN 'Domingo' WHEN `c_horarios`.`dia_inicio` = 1 THEN 'Lunes' WHEN `c_horarios`.`dia_inicio` = 2 THEN 'Martes' WHEN `c_horarios`.`dia_inicio` = 3 THEN 'Miercoles' WHEN `c_horarios`.`dia_inicio` = 4 THEN 'Jueves' WHEN `c_horarios`.`dia_inicio` = 5 THEN 'Viernes' WHEN `c_horarios`.`dia_inicio` = 6 THEN 'Sabado' END AS `dia_inicio`, CASE WHEN `c_horarios`.`dia_final` = 0 THEN 'Domingo' WHEN `c_horarios`.`dia_final` = 1 THEN 'Lunes' WHEN `c_horarios`.`dia_final` = 2 THEN 'Martes' WHEN `c_horarios`.`dia_final` = 3 THEN 'Miercoles' WHEN `c_horarios`.`dia_final` = 4 THEN 'Jueves' WHEN `c_horarios`.`dia_final` = 5 THEN 'Viernes' WHEN `c_horarios`.`dia_final` = 6 THEN 'Sabado' END AS `dia_final`, CASE WHEN `c_horarios`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_horarios` ;
 
 -- --------------------------------------------------------
 
@@ -3203,7 +3255,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_marca`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_marca`  AS  select `c_marca`.`id` AS `id`,`c_marca`.`nombre` AS `nombre`,case when `c_marca`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_marca` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_marca`  AS SELECT `c_marca`.`id` AS `id`, `c_marca`.`nombre` AS `nombre`, CASE WHEN `c_marca`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_marca` ;
 
 -- --------------------------------------------------------
 
@@ -3212,7 +3264,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_municipios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_municipios`  AS  select `mun`.`cve_mun` AS `id`,`mun`.`cve_ent` AS `cve_ent`,`mun`.`nombre` AS `nombre` from `c_municipios` `mun` order by `mun`.`nombre` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_municipios`  AS SELECT `mun`.`cve_mun` AS `id`, `mun`.`cve_ent` AS `cve_ent`, `mun`.`nombre` AS `nombre` FROM `c_municipios` AS `mun` ORDER BY `mun`.`nombre` ASC ;
 
 -- --------------------------------------------------------
 
@@ -3221,7 +3273,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_perfiles`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_perfiles`  AS  select `c_perfiles`.`id` AS `id`,`c_perfiles`.`nombre` AS `nombre`,case when `c_perfiles`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_perfiles` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_perfiles`  AS SELECT `c_perfiles`.`id` AS `id`, `c_perfiles`.`nombre` AS `nombre`, CASE WHEN `c_perfiles`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_perfiles` ;
 
 -- --------------------------------------------------------
 
@@ -3230,7 +3282,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_polizas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_polizas`  AS  select `pol`.`id` AS `id`,`cln`.`nombre` AS `cliente_nom`,`pol`.`costo` AS `costo`,`pol`.`fecha_inicio` AS `fecha_inicio`,`pol`.`fecha_fin` AS `fecha_fin`,`emp`.`nombre` AS `emp_nom`,`cestatus`.`nombre` AS `statu` from (((`polizas` `pol` left join `clientes` `cln` on(`pol`.`cliente_id` = `cln`.`id`)) left join `empleados` `emp` on(`pol`.`empleado_id` = `emp`.`id`)) left join `c_estatus_general` `cestatus` on(`pol`.`estatus_general_id` = `cestatus`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_polizas`  AS SELECT `pol`.`id` AS `id`, `cln`.`nombre` AS `cliente_nom`, `pol`.`costo` AS `costo`, `pol`.`fecha_inicio` AS `fecha_inicio`, `pol`.`fecha_fin` AS `fecha_fin`, `emp`.`nombre` AS `emp_nom`, `cestatus`.`nombre` AS `statu` FROM (((`polizas` `pol` left join `clientes` `cln` on(`pol`.`cliente_id` = `cln`.`id`)) left join `empleados` `emp` on(`pol`.`empleado_id` = `emp`.`id`)) left join `c_estatus_general` `cestatus` on(`pol`.`estatus_general_id` = `cestatus`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -3239,7 +3291,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_publicidad`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_publicidad`  AS  select `c_publicidad`.`id` AS `id`,`c_publicidad`.`nombre` AS `nombre`,case when `c_publicidad`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_publicidad` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_publicidad`  AS SELECT `c_publicidad`.`id` AS `id`, `c_publicidad`.`nombre` AS `nombre`, CASE WHEN `c_publicidad`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_publicidad` ;
 
 -- --------------------------------------------------------
 
@@ -3248,7 +3300,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_sueldos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_sueldos`  AS  select `c_sueldos`.`id` AS `id`,`c_sueldos`.`nombre` AS `nombre`,case when `c_sueldos`.`activo` = 1 then 'Activo' else 'Inactivo' end AS `activo` from `c_sueldos` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_sueldos`  AS SELECT `c_sueldos`.`id` AS `id`, `c_sueldos`.`nombre` AS `nombre`, CASE WHEN `c_sueldos`.`activo` = 1 THEN 'Activo' ELSE 'Inactivo' END AS `activo` FROM `c_sueldos` ;
 
 -- --------------------------------------------------------
 
@@ -3257,7 +3309,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_tecnicos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tecnicos`  AS  select `emp`.`id` AS `id`,`emp`.`nombre` AS `nombre`,`emp`.`direccion` AS `direccion`,`emp`.`tel` AS `tel`,`emp`.`fecha_nacimiento` AS `fecha_nacimiento`,`emp`.`foto_emp` AS `foto_emp`,`cper`.`nombre` AS `perfil`,`csuel`.`nombre` AS `tipo_sueldo`,`emp`.`monto_sueldo` AS `monto_sueldo`,`cestatus`.`nombre` AS `estatus`,`emp`.`correo` AS `correo`,`cestados`.`nombre` AS `estado`,`tec`.`limite_credito` AS `limite_credito`,`tec`.`estatus_general_id` AS `estatus_general_id`,`tec`.`id` AS `tecnico_id` from (((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) join `tecnicos` `tec` on(`tec`.`empleado_id` = `emp`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_tecnicos`  AS SELECT `emp`.`id` AS `id`, `emp`.`nombre` AS `nombre`, `emp`.`direccion` AS `direccion`, `emp`.`tel` AS `tel`, `emp`.`fecha_nacimiento` AS `fecha_nacimiento`, `emp`.`foto_emp` AS `foto_emp`, `cper`.`nombre` AS `perfil`, `csuel`.`nombre` AS `tipo_sueldo`, `emp`.`monto_sueldo` AS `monto_sueldo`, `cestatus`.`nombre` AS `estatus`, `emp`.`correo` AS `correo`, `cestados`.`nombre` AS `estado`, `tec`.`limite_credito` AS `limite_credito`, `tec`.`estatus_general_id` AS `estatus_general_id`, `tec`.`id` AS `tecnico_id` FROM (((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) join `tecnicos` `tec` on(`tec`.`empleado_id` = `emp`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -3266,11 +3318,17 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_usuarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_usuarios`  AS  select `emp`.`id` AS `id`,`emp`.`nombre` AS `nombre`,`emp`.`direccion` AS `direccion`,`emp`.`tel` AS `tel`,`emp`.`fecha_nacimiento` AS `fecha_nacimiento`,`emp`.`foto_emp` AS `foto_emp`,`cper`.`nombre` AS `perfil`,`csuel`.`nombre` AS `tipo_sueldo`,`emp`.`monto_sueldo` AS `monto_sueldo`,`cestatus`.`nombre` AS `estatus`,`emp`.`correo` AS `correo`,`cestados`.`nombre` AS `estado`,`urs`.`id` AS `usuario_id`,`urs`.`usuario` AS `usuario`,`urs`.`contraseña` AS `contraseña`,`urs`.`hora_entrada` AS `hora_entrada`,`urs`.`hora_salida` AS `hora_salida`,`urs`.`estatus_general_id` AS `estatus_general_id` from (((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) join `usuarios` `urs` on(`urs`.`empleado_id` = `emp`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_usuarios`  AS SELECT `emp`.`id` AS `id`, `emp`.`nombre` AS `nombre`, `emp`.`direccion` AS `direccion`, `emp`.`tel` AS `tel`, `emp`.`fecha_nacimiento` AS `fecha_nacimiento`, `emp`.`foto_emp` AS `foto_emp`, `cper`.`nombre` AS `perfil`, `csuel`.`nombre` AS `tipo_sueldo`, `emp`.`monto_sueldo` AS `monto_sueldo`, `cestatus`.`nombre` AS `estatus`, `emp`.`correo` AS `correo`, `cestados`.`nombre` AS `estado`, `urs`.`id` AS `usuario_id`, `urs`.`usuario` AS `usuario`, `urs`.`contraseña` AS `contraseña`, `urs`.`hora_entrada` AS `hora_entrada`, `urs`.`hora_salida` AS `hora_salida`, `urs`.`estatus_general_id` AS `estatus_general_id` FROM (((((`empleados` `emp` left join `c_perfiles` `cper` on(`emp`.`perfil_id` = `cper`.`id`)) left join `c_sueldos` `csuel` on(`emp`.`tipo_sueldo_id` = `csuel`.`id`)) left join `c_estatus_general` `cestatus` on(`emp`.`estatus_general_id` = `cestatus`.`id`)) left join `c_estados` `cestados` on(`emp`.`estado_id` = `cestados`.`id`)) join `usuarios` `urs` on(`urs`.`empleado_id` = `emp`.`id`)) ;
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `accesos`
+--
+ALTER TABLE `accesos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `clientes`
@@ -3399,16 +3457,22 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `accesos`
+--
+ALTER TABLE `accesos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `c_equipos`
 --
 ALTER TABLE `c_equipos`
-  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `c_estatus_general`
@@ -3426,7 +3490,7 @@ ALTER TABLE `c_horarios`
 -- AUTO_INCREMENT de la tabla `c_marca`
 --
 ALTER TABLE `c_marca`
-  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `c_perfiles`
@@ -3450,7 +3514,7 @@ ALTER TABLE `c_sueldos`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `polizas`
@@ -3462,7 +3526,7 @@ ALTER TABLE `polizas`
 -- AUTO_INCREMENT de la tabla `r_cliente_tel`
 --
 ALTER TABLE `r_cliente_tel`
-  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnicos`
@@ -3474,7 +3538,7 @@ ALTER TABLE `tecnicos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

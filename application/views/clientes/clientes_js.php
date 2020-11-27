@@ -220,7 +220,9 @@ $(document).ready(function(){
         $('input[name=longitud]').val(coincidencias[index].longitude);
         $('input[name=latitud]').val(coincidencias[index].latitude);
         carga_mapa('map',coincidencias[index].longitude,coincidencias[index].latitude);
+        
     })
+
 
     
 
