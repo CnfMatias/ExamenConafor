@@ -16,6 +16,8 @@ $configuraciones_m = '';
 $perfiles_m = '';
 $empleados_m = '';
 $usuarios_m = '';
+$tecnicos_m = '';
+$polizas_m = '';
 $proveedores_m = '';
 $clientes_m = '';
 $prollos_m = '';
@@ -28,6 +30,7 @@ $materiaprima_m = '';
 $compras_m = '';
 $ventas_m = '';
 $caja_chica_m = '';
+$accesos_m = '';
 
 $vacia_m = '';
 
@@ -43,20 +46,6 @@ switch (true) {
         $descri_m = 'Módulo para la configuración del Sistema Olimpoos';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'presupuesto') !== false:
-        $presupuesto_m = 'active';
-        $fa_icon = 'fa fa-archive';
-        $titulo_m = 'Administración / presupuesto';
-        $descri_m = 'Presupuesto de lavadoras';
-        $m_superior_admin = 'active open';
-        break;
-    case strpos($url, 'perfiles') !== false:
-        $perfiles_m = 'active';
-        $fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Perfiles';
-        $descri_m = 'Módulo para la administración de perfiles de usuarios';
-        $m_superior_admin = 'active open';
-        break;
     case strpos($url, 'empleados') !== false:
         $empleados_m = 'active';
         $fa_icon = 'fal fa-cogs';
@@ -64,20 +53,6 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de empleados';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'usuarios') !== false:
-		$usuarios_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Usuarios';
-        $descri_m = 'Módulo para la creación y administración de usuarios';
-        $m_superior_admin = 'active open';
-    break;
-    case strpos($url, 'proveedores') !== false:
-		$proveedores_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Proveedores';
-        $descri_m = 'Módulo para la creación y administración de proveedores';
-        $m_superior_admin = 'active open';
-    break;
     case strpos($url, 'clientes') !== false:
 		$clientes_m = 'active';
 		$fa_icon = 'fal fa-cogs';
@@ -85,14 +60,21 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de clientes';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'reloj') !== false:
-		$checador_m = 'active';
+    case strpos($url, 'usuarios') !== false:
+		$usuarios_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración - Reloj Checador';
-        $descri_m = 'Módulo para la revisión del Reloj Checador';
+        $titulo_m = 'Administración / Usuarios';
+        $descri_m = 'Módulo para la creación y administración de usuarios';
         $m_superior_admin = 'active open';
     break;
-    /////////////// Produccion //////////////
+    case strpos($url, 'accesos') !== false:
+		$accesos_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / Accesos';
+        $descri_m = 'Módulo para la visualización de accesos';
+        $m_superior_admin = 'active open';
+    break;
+    /////////////// Servicios //////////////
     case strpos($url, 'rollos') !== false:
 		$prollos_m = 'active';
 		$fa_icon = 'fal fa-puzzle-piece';
@@ -172,7 +154,7 @@ switch (true) {
                 <a href="'.base_url().'configuraciones" title="Configuraciones" data-filter-tags="configuraciones">
                     <span class="nav-link-text">Configuraciones </span>
                 </a>
-            </li>
+            </li> 
             <li class="'.$empleados_m.'">
                 <a href="'.base_url().'empleados" title="Empleados" data-filter-tags="empleados">
                     <span class="nav-link-text">Empleados</span>
@@ -182,30 +164,10 @@ switch (true) {
                 <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
                     <span class="nav-link-text">Clientes</span>
                 </a>
-            </li>
-            <li class="'.$usuarios_m.'">
-                <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
-                    <span class="nav-link-text">Usuarios</span>
-                </a>
-            </li>    
-            <li class="'.$proveedores_m.'">
-                <a href="'.base_url().'proveedores" title="Proveedores" data-filter-tags="proveedores">
-                    <span class="nav-link-text">Proveedores</span>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="'.$m_superior_oper.'">
-        <a href="#"><i class="fal fa-puzzle-piece"></i><span class="nav-link-text">Producción</span></a>
-        <ul>
-            <li class="'.$prollos_m.'">
-                <a href="'.base_url().'rollos" title="Producción de Rollos" data-filter-tags="producción rollo">
-                    <span class="nav-link-text">Producción de Rollos</span>
-                </a>
-            </li>
-            <li class="'.$corte_m.'">
-                <a href="'.base_url().'corte" title="Producción de Piezas" data-filter-tags="producción de piezas">
-                    <span class="nav-link-text">Programación de Corte</span>
+            </li> 
+            <li class="'.$accesos_m.'">
+                <a href="'.base_url().'accesos" title="Accesos" data-filter-tags="Accesos">
+                    <span class="nav-link-text">Accesos</span>
                 </a>
             </li>
         </ul>

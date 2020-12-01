@@ -63,6 +63,7 @@ class Api_model extends CI_Model {
         $this->db->where($condicion);
         $this->db->update($tabla);
         $this->db->trans_complete();
+        //var_dump($this->db);
         if ($this->db->trans_status() === FALSE) {
             return array('ban'=>false,'error'=>$this->db->error());
         }

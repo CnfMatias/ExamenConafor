@@ -42,7 +42,7 @@ class Usuarios extends CI_Controller {
 	public function index(){
 		$data = $this->basicas();
 		$data['usuarios'] = $this->AM->all('vw_usuarios','json');
-		$data['empleados'] = $this->AM->all('vw_empleados_sin_usuario','json');
+		//$data['empleados'] = $this->AM->all('vw_empleados_sin_usuario','json');
 		$this->load->view('usuarios/usuarios',$data);
 		$this->load->view('usuarios/usuarios_js');
 		$this->load->view('footer',$data);
@@ -50,7 +50,7 @@ class Usuarios extends CI_Controller {
 	//Funcion para traer la vista de nuevo empleado
 	public function nuevo(){
 		$data = $this->basicas();
-		$data['empleados'] = $this->AM->all('vw_empleados_sin_usuario','json');
+		//$data['empleados'] = $this->AM->all('vw_empleados_sin_usuario','json');
 		$this->load->view('usuarios/nuevo_usuario',$data);
 		$this->load->view('usuarios/usuarios_js');
 		$this->load->view('footer',$data);

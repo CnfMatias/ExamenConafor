@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col col-md-12 text-right">
-        <button class="btn btn-primary" id="btn_nvo_usuario" ><i class="fa fa-plus"></i> Nuevo Usuario</button>
+        <button class="btn btn-primary" id="btn_nvo_usuario"><i class="fa fa-plus"></i> Nuevo Usuario</button>
     </div>
 </div>
 <br>

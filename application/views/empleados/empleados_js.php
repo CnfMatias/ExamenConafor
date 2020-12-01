@@ -69,8 +69,8 @@ $(document).ready(function(){
     //botonazo de actulizacion de una o varias actualizaciones
     $("body").on('click','.btx_activar',function(){        
         let ide = $(this).attr('ide').split('-');
-        let valor = (ide[1] == 3)?2:3;
-        let datos = {'condicion':{'id':ide[0]},'datos':{'estatus_general_id':valor}};
+        let valor = (ide[1] == 1)?0:1;
+        let datos = {'condicion':{'id':ide[0]},'datos':{'activo':valor}};
 
         api.post('<?=base_url()?>empleados/activar',datos)
         .done(function(rep){
