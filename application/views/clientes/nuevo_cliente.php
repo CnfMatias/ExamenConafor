@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-3">
                 <label for="">Numero Interior:</label>
-                <input type="text"  name="num_int" class="form-control" autocomplete="off" placeholder="Max 3" maxlength="3">
+                <input type="text"  name="num_int" class="form-control" autocomplete="off" placeholder="Max 3" maxlength="5">
             </div>
         </div>
         <div class="row m-t-20">
