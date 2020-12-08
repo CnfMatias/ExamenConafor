@@ -37,9 +37,6 @@
                         <div class="col col-md-4 offset-md-2">
                             <button tab="vw_sueldos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Sueldos</button>
                         </div>
-                        <div class="col col-md-4">
-                            <button tab="vw_horarios" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Horarios</button>
-                        </div>
                     </div>
                     
                 </div>
@@ -113,14 +110,14 @@
                                 field: "estatus"
                             });
                             table = new Tabulator("#tabla_elementos", {
-                                layout: "fitColumns",
+                                layout: "fitDataFill",
                                 data: JSON.parse(data).data,
                                 columns: columnas
                             });
                             break;
                         default:
                             table = new Tabulator("#tabla_elementos", {
-                                layout: "fitColumns",
+                                layout: "fitDataFill",
                                 data: JSON.parse(data).data,
                                 autoColumns: true
                             });
@@ -253,11 +250,6 @@
                 titulo = 'Tipo de Sueldo';
                 html = '<div class="row text-left"><div class="col-md-12"><label for="">Sueldos:</label><input required class="form-control" name="nombre" type="text"></div></div>';
             break;
-            case 'vw_horarios':
-                tb_php = 'c_horarios';
-                titulo = 'Tipo de Horario';
-                html = '<div class="row"> <div class="col-md-8 offset-md-2"> <div class="row"> <div class="col-md-12 text-left"> <label> Nombre: </label> <input type="text" class="form-control" name="nombre" maxlength="200"> </div></div><div class="row m-t-20"> <div class="col-md-6"> <label> Día de inicio: </label> <select class="form-control" name="dia_inicio"> <option value="">Selecciona</option> <option value="0">Domingo</option> <option value="1">lunes</option> <option value="2">Martes</option> <option value="3">Miercoles</option> <option value="4">Jueves</option> <option value="5">Viernes</option> <option value="6">Sabado</option> </select> </div><div class="col-md-6"> <label> Día de Final: </label> <select class="form-control" name="dia_final"> <option value="">Selecciona</option> <option value="0">Domingo</option> <option value="1">lunes</option> <option value="2">Martes</option> <option value="3">Miercoles</option> <option value="4">Jueves</option> <option value="5">Viernes</option> <option value="6">Sabado</option> </select> </div></div><div class="row m-t-20"> <div class="col-md-6"> <label>Hora inicio</label> <input type="time" class="form-control" name="hora_inicio"> </div><div class="col-md-6"> <label>Hora Final</label> <input type="time" class="form-control" name="hora_final"> </div></div></div></div>';
-                break;
         }
         modal(titulo, cabecera + html + botones);
     })
