@@ -13,11 +13,6 @@ $configuraciones_m = '';
 $empleados_m = '';
 
 
-$vacia_m = '';
-
-$presupuesto_m = '';
-
-
 switch (true) {
         ///////////////// Administracion //////
     case strpos($url, 'configuraciones') !== false:

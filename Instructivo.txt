@@ -1,0 +1,9 @@
+-Instructivo
+*Intente subirlo en vercel pero no me daba la opcion de ubicar mi directorio y mandaba el index sin nada. Intente pasarle el url pero no tuve exito.
+
+*Para poder abrirlo local el proyecto esta en xampp es el que utilice para Apache y la base de datos la realice en navicat, tambien se puede con el phpMyadmin,
+les dejare una exportación de la base de datos. Dentro del proyecto en el model utilice la Api_model y se encuentra la api y las funciones que utilice para la base de datos.
+
+*En views en las funciones estan otros metodos de los cuales utilice la api para las funciones GET y POST.
+
+*Para arrancar el proyecto en la web es http://localhost/examen
