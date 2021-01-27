@@ -63,6 +63,7 @@ class clientes extends CI_Controller {
 	public function nuevo(){
 		$data = $this->basicas();
 		$data['estados'] = $this->crea_select('vw_estados');
+		$data['municipios_id'] = $this->crea_select('vw_municipios');
 		$data['publicidad'] = $this->crea_select('c_publicidad');
 		$this->load->view('clientes/nuevo_cliente',$data);
 		$this->load->view('clientes/clientes_js');
@@ -89,7 +90,7 @@ class clientes extends CI_Controller {
 		$data = $this->basicas();
 		$condicion = array('id'=>$ide);
 		$data['cliente'] = $this->AM->consulta_unica($condicion,'vw_clientes');
-		var_dump($data['cliente']);
+		//var_dump($data['cliente']);
 		$estado_id = $data['cliente']->cve_ent;
 		$data['estados_id'] = $this->crea_select('vw_estados',$estado_id);
 		$municipio_id = $data['cliente']->cve_mun;
@@ -163,8 +164,6 @@ class clientes extends CI_Controller {
 				else
 					$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
 			}
-				else
-					$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar cliente','error'=>$res['error']));
 	}
 
 	//Funcion para eliminar un cliente

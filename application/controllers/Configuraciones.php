@@ -111,41 +111,21 @@ class Configuraciones extends CI_Controller {
 		//var_dump($_POST);
 		$condicion = array('id'=>$_POST['id']);
 		switch ($tabla) {
-			case 'vw_perfiles':
+			case 'vw_estado_empleado':
 				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
 				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_perfiles');
+				$res = $this->AM->actualizar($condicion,$_POST,'c_estado_empleado');
 			break;
-			case 'vw_equipos':
+			case 'vw_titulo_trabajo':
 				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
 				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_equipos');
+				$res = $this->AM->actualizar($condicion,$_POST,'c_titulo_trabajo');
 			break;
-			case 'vw_marca':
+			case 'vw_sub_unidad':
 				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
 				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_marca');
+				$res = $this->AM->actualizar($condicion,$_POST,'c_sub_unidad');
 			break;
-			case 'vw_publicidad':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_publicidad');
-			break;
-			case 'vw_sueldos':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_sueldos');
-			break;
-			case 'vw_horarios':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				//var_dump($_POST);
-				$_POST['dia_inicio'] = $this->retorno_dia($_POST['dia_inicio']);
-				$_POST['dia_final'] = $this->retorno_dia($_POST['dia_final']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_horarios');
-			break;
-
-			
 		}
 		//var_dump($res);
 		if($res['ban'])
@@ -157,23 +137,14 @@ class Configuraciones extends CI_Controller {
 	public function eliminar(){
 		$condicion = array('id'=>$_POST['id']);
 		switch ($_POST['tabla']) {
-			case 'vw_perfiles':
-				$res = $this->AM->eliminar($condicion,'c_perfiles');
+			case 'vw_estado_empleado':
+				$res = $this->AM->eliminar($condicion, 'c_estado_empleado');
 			break;
 			case 'vw_equipos':
 				$res = $this->AM->eliminar($condicion,'c_equipos');
 			break;
-			case 'vw_marca':
+			case 'vw_titulo_trabajo':
 				$res = $this->AM->eliminar($condicion,'c_marca');
-			break;
-			case 'vw_publicidad':
-				$res = $this->AM->eliminar($condicion,'c_productos_servicios');
-			break;
-			case 'vw_sueldos':
-				$res = $this->AM->eliminar($condicion,'c_sueldos');
-			break;
-			case 'vw_horarios':
-				$res = $this->AM->eliminar($condicion,'c_horarios');
 			break;
 			
 		}
@@ -184,34 +155,3 @@ class Configuraciones extends CI_Controller {
 			$this->codificar(array('ban'=>false,'msg'=>$res['error']));
 	}
 }
-
-
-/* 
-case 'vw_tipo_proveedor':
-				$_POST['nombre'] = $_POST['tipo'];
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['tipo']);
-				unset($_POST['id']);
-				//var_dump($_POST);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_proveedores');
-			break;
-			case 'vw_productos_servicios':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_productos_servicios');
-			break;
-			case 'vw_tipo_pago':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_tipo_pago');
-			break;
-			case 'vw_metodos_pago':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_metodos_pago');
-			break;
-			case 'vw_colores':
-				$_POST['activo'] = (strtolower($_POST['activo']) == 'activo')?1:0;
-				unset($_POST['id']);
-				$res = $this->AM->actualizar($condicion,$_POST,'c_colores');
-			break; */

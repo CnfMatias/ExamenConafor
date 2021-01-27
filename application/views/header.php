@@ -2,8 +2,8 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title>Splus</title>
-        <meta name="description" content="Sistema Web Administrativo Splus">
+        <title>Examen</title>
+        <meta name="description" content="Examen">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,5 +34,5 @@
     <script src="<?=base_url()?>frontend/js/app.bundle.min.js"></script>
     <!-- <script type="text/javascript" src="<=base_url()?>frontend/js/jquery.mask.js"></script> -->
     <div class="page-wrapper"><div class="page-inner">
-    <aside class="page-sidebar"><div class="page-logo"> <img src="<?=base_url()?>frontend/images/logo.png" class="img img-fluid" alt="Splus WebApp"> <span class="page-logo-text mr-1"> Splus </span> </div><nav id="js-primary-nav" class="primary-nav" role="navigation"> <div class="nav-filter"> <div class="position-relative"> <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0"> <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar"> <i class="fal fa-chevron-up"></i> </a> </div></div>
+    <aside class="page-sidebar"><div class="page-logo"> <img src="<?=base_url()?>frontend/images/logo.png" class="img img-fluid" alt="Splus WebApp"> <span class="page-logo-text mr-1"> Examen </span> </div><nav id="js-primary-nav" class="primary-nav" role="navigation"> <div class="nav-filter"> <div class="position-relative"> <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0"> <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar"> <i class="fal fa-chevron-up"></i> </a> </div></div>
                     

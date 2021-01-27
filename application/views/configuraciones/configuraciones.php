@@ -19,26 +19,17 @@
                 <div id="div_catalogos">
                     <div class="row">
                         <div class="col col-md-4 offset-md-2">
-                            <button tab="vw_perfiles" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Perfiles</button>
+                            <button tab="vw_estado_empleado" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Estado de Empleo</button>
                         </div>
                         <div class="col col-md-4">
-                            <button tab="vw_equipos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Equipos</button>
+                            <button tab="vw_titulo_trabajo" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Titulo de Trabajo</button>
                         </div>
                     </div>
-                    <div class="row m-t-20">
-                        <div class="col col-md-4 offset-md-2">
-                            <button tab="vw_marca" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Marcas</button>
-                        </div>
-                        <div class="col col-md-4">
-                            <button tab="vw_publicidad" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de publicidad</button>
+                    <div class="row m-t-20 ">
+                        <div class="col-md-8 offset-md-2">
+                            <button tab="vw_sub_unidad" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Sub-Unidad</button>
                         </div>
                     </div>
-                    <div class="row m-t-20">
-                        <div class="col col-md-4 offset-md-2">
-                            <button tab="vw_sueldos" class="btn btn-lg btn-block btn-secondary alto-80 btx_catalogo"> Catálogo de Sueldos</button>
-                        </div>
-                    </div>
-                    
                 </div>
                 <div class="row m-t-30" id="div_tabla" style="display:none;">
                     <div class="col-md-8 offset-md-2">
@@ -78,9 +69,6 @@
                     $("#div_catalogos").hide();
                     $("#div_tabla").fadeIn(500);
                     $("#titulo").html(texto);
-                    // let columnas = [
-                    // {title:"Opciones", field:"nombre", sorter:"string",align:'center'},
-                    // ];
                     let contador = 0;
                     let icons = function(cell, formatterParams) {
                         contador += 1;
@@ -154,8 +142,6 @@
                 if ($(this).attr('tabulator-field') !== undefined) {
                     let nombre = $(this).attr('tabulator-field');
                     let valor = $(this).text();
-                    //solo para el catalogo de colores
-                    let color = $(this).find('input[type=button]').attr('val');
                     if (nombre == 'id')
                         $(this).html('<input style="border:none;background-color:transparent;" readonly type="text class="form-control" name="' + nombre + '" dom="temporal" value="' + valor + '">')
                     else
@@ -187,7 +173,6 @@
                     alert('', JSON.parse(data).msg, 'success');
                     $('.tabulator-row[ide=' + row + ']').attr('style', 'background-color: #38A0E3;');
                     carga_tabla(texto, tabla, url)
-                    //$('#frm_save').submit();
                     ban_edit = true;
                 } else {
                     alert('', JSON.parse(data).msg, 'error');
@@ -225,31 +210,21 @@
         let titulo = '';
 
         switch (tabla) {
-            case 'vw_perfiles':
-                tb_php = 'c_perfiles';
-                titulo = 'Nuevo Perfil';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Perfil:</label><input required class="form-control" name="nombre" type="text"></div></div>';
+            case 'vw_estado_empleado':
+                tb_php = 'c_estado_empleado';
+                titulo = 'Estado del Empleo';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Estado de Empleado:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_equipos':
-                tb_php = 'c_equipos';
-                titulo = 'Tipo de Equipo';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre del Equipo:</label><input required class="form-control" name="nombre" type="text"></div></div>';
+            case 'vw_titulo_trabajo':
+                tb_php = 'c_titulo_trabajo';
+                titulo = 'Titulo del trabajo';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Titulo del Trabajo:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_marca':
-                tb_php = 'c_marca';
-                titulo = 'Tipo de Marca';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre de la Marca:</label><input required class="form-control" name="nombre" type="text"></div></div>';
+            case 'vw_sub_unidad':
+                tb_php = 'c_sub_unidad';
+                titulo = 'Sub-Unidad';
+                html = '<div class="row text-left"><div class="col-md-12"><label for="">Nombre:</label><input required class="form-control" name="nombre" type="text"></div></div>';
                 break;
-            case 'vw_publicidad':
-                tb_php = 'c_publicidad';
-                titulo = 'Tipo de Publicidad';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Publicidad:</label><input required class="form-control" name="nombre" type="text"></div></div>';
-                break;
-            case 'vw_sueldos':
-                tb_php = 'c_sueldos';
-                titulo = 'Tipo de Sueldo';
-                html = '<div class="row text-left"><div class="col-md-12"><label for="">Sueldos:</label><input required class="form-control" name="nombre" type="text"></div></div>';
-            break;
         }
         modal(titulo, cabecera + html + botones);
     })
@@ -287,4 +262,3 @@
 
     })
 </script>
-

@@ -339,8 +339,8 @@ RESULT:
 .page-logo, .page-sidebar, .nav-footer, .bg-brand-gradient {
   /* background-image: -webkit-gradient(linear, right top, left top, from(rgba(51, 148, 225, 0.18)), to(transparent));
   background-image: linear-gradient(270deg, rgba(143, 35, 31, 0.18), transparent); */
- background: rgb(0,43,88);
- background: linear-gradient(90deg, rgba(0,43,88,1) 0%, rgba(0,77,131,1) 100%);}
+ background: rgb(23, 24, 26);
+ background: linear-gradient(90deg, rgb(23, 24, 26) 0%, rgb(46, 51, 54) 100%);}
 
 /*
 %shadow-hover {
@@ -475,7 +475,7 @@ RESULT:
     -webkit-box-shadow: none;
             box-shadow: none;
     border-color: #152a63;
-    background: #a38cc6;
+    background: #c5380d; /*#a38cc6*/
     color: #fff; }
 
 .settings-panel .expanded {
@@ -2564,7 +2564,7 @@ html body {
 
 .accordion.accordion-hover .card-title:not(.collapsed) {
   color: #fff;
-  background-color: #072146e8; }
+  background-color: #754611e8; }
 
 /* 	DEV NOTE: The reason why we had to add this layer for alert colors is because BS4 
 	does not allow you to add your own alert colors via variable control rather 
